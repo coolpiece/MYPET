@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1089671807726",
+    "project_id": "mypet-4deac",
+    "storage_bucket": "mypet-4deac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089671807726:android:496bef26dca46bf5dba9ff",
+        "android_client_info": {
+          "package_name": "com.example.sainpe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089671807726-0gggh7n3t962q46j1gafe7dffn9c8gjt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKzXB_STxUkozkBNXu5wsTLMrAIj6Y3S4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089671807726-0gggh7n3t962q46j1gafe7dffn9c8gjt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
