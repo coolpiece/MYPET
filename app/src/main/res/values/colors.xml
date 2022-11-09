@@ -6,7 +6,11 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+<<<<<<< HEAD
+
+=======
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#C0C0C0</color>
     <color name="mint">#C7E2CF</color>
+>>>>>>> cae9e50097fddd0a64060d1193f14f8981872007
 </resources>
