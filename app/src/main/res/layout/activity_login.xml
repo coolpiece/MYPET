@@ -17,8 +17,8 @@
             android:layout_marginTop="60dp"
             android:layout_marginBottom="50dp"
             android:text="로그인"
-            android:textColor="@color/black"
             android:textSize="20sp"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <EditText
@@ -26,24 +26,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:hint="이메일"
-            android:inputType="textEmailAddress"
             android:minHeight="48dp"
+            android:hint="이메일"
+            android:textSize="15sp"
             android:textColorHint="@color/hint"
-            android:textSize="15sp" />
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:hint="비밀번호"
-            android:inputType="textPassword"
             android:minHeight="48dp"
+            android:hint="비밀번호"
+            android:textSize="15sp"
             android:textColorHint="@color/hint"
-            android:textSize="15sp" />
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
         <Button
+            android:id="@+id/sign_in_btn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="0dp"
@@ -62,18 +67,18 @@
                 android:text="아이디 / 비밀번호 찾기 >"
                 android:textSize="13sp"
                 android:textColor="@color/black"
-                android:background="@color/white"/>
+                android:background="@color/transparent"/>
 
             <Button
+                android:id="@+id/sign_up_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="회원가입"
                 android:textSize="13sp"
                 android:textColor="@color/black"
-                android:background="@color/white"/>
+                android:background="@color/transparent"/>
         </RelativeLayout>
-
 
     </LinearLayout>
 

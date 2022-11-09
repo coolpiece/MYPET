@@ -25,33 +25,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:minHeight="48dp"
             android:hint="이메일"
-            android:textColorHint="@color/hint"
             android:textSize="15sp"
+            android:textColorHint="@color/hint"
             android:inputType="textEmailAddress"
-            android:minHeight="48dp" />
+            android:maxLines="1"
+            android:singleLine="true"/>
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:minHeight="48dp"
             android:hint="비밀번호"
-            android:textColorHint="@color/hint"
             android:textSize="15sp"
+            android:textColorHint="@color/hint"
             android:inputType="textPassword"
-            android:minHeight="48dp" />
+            android:maxLines="1"
+            android:singleLine="true"/>
+
 
         <EditText
             android:id="@+id/password_check"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
+            android:minHeight="48dp"
             android:hint="비밀번호 확인"
             android:textSize="15sp"
             android:textColorHint="@color/hint"
             android:inputType="textPassword"
-            android:minHeight="48dp" />
+            android:maxLines="1"
+            android:singleLine="true"/>
+
 
         <Button
             android:layout_width="match_parent"

@@ -31,7 +31,7 @@
             android:text="+ 가족 구성원 추가"
             android:textColor="@color/black"
             android:textSize="12sp"
-            android:background="@color/white"/>
+            android:background="@color/transparent"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
