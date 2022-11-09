@@ -16,7 +16,7 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="60dp"
             android:layout_marginBottom="50dp"
             android:textStyle="bold"/>
 
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:hint="이메일"
-            android:textColorHint="#757575"
+            android:textColorHint="@color/hint"
             android:textSize="15sp"
             android:inputType="textEmailAddress"
             android:minHeight="48dp" />
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:hint="비밀번호"
-            android:textColorHint="#757575"
+            android:textColorHint="@color/hint"
             android:textSize="15sp"
             android:inputType="textPassword"
             android:minHeight="48dp" />
@@ -49,7 +49,7 @@
             android:layout_marginBottom="20dp"
             android:hint="비밀번호 확인"
             android:textSize="15sp"
-            android:textColorHint="#757575"
+            android:textColorHint="@color/hint"
             android:inputType="textPassword"
             android:minHeight="48dp" />
 
