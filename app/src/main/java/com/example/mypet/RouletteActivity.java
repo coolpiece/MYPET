@@ -63,7 +63,7 @@ public class RouletteActivity extends AppCompatActivity {
         memberList.add("c");
         memberList.add("d");
         memberList.add("e");
-        memberList.add("f");
+        memberList.add("g");
 
         wheelItems = new ArrayList<>();
         wheelItems.add(new WheelItem(Color.parseColor("#F44336"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(0))); // 일단 이렇게 해놓고 가족 목록 불러오고, 색상 어떻게 넣을지 고민해볼 것 ..
