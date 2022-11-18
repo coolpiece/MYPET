@@ -63,14 +63,14 @@ public class RouletteActivity extends AppCompatActivity {
         memberList.add("c");
         memberList.add("d");
         memberList.add("e");
-        memberList.add("g");
+        memberList.add("ㅅㅇ");
 
         wheelItems = new ArrayList<>();
-        wheelItems.add(new WheelItem(Color.parseColor("#F44336"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(0))); // 일단 이렇게 해놓고 가족 목록 불러오고, 색상 어떻게 넣을지 고민해볼 것 ..
+        wheelItems.add(new WheelItem(Color.parseColor("#F44366"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(0))); // 일단 이렇게 해놓고 가족 목록 불러오고, 색상 어떻게 넣을지 고민해볼 것 ..
         wheelItems.add(new WheelItem(Color.parseColor("#00E6FF"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(1)));
-        wheelItems.add(new WheelItem(Color.parseColor("#F00E6F"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(2)));
-        wheelItems.add(new WheelItem(Color.parseColor("#FC6C6C"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(3)));
+        wheelItems.add(new WheelItem(Color.parseColor("#F44366"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(2)));
+        wheelItems.add(new WheelItem(Color.parseColor("#00E6FF"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(3)));
         wheelItems.add(new WheelItem(Color.parseColor("#F44366"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(4)));
-        wheelItems.add(new WheelItem(Color.parseColor("#9C27B0"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(5)));
+        wheelItems.add(new WheelItem(Color.parseColor("#00E6FF"), BitmapFactory.decodeResource(getResources(), R.drawable.blank), memberList.get(5)));
     }
 }

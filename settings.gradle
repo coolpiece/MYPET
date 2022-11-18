@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MYPET"
 include ':app'
+include ':luckywheel'
