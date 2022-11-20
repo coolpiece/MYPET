@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MYPET"
         tools:targetApi="31">
         <activity
-            android:name=".FamilyActivity"
+            android:name=".MenuActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,12 +28,12 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".LoginActivity"/>
         <activity android:name=".SignUpActivity"/>
-        <activity android:name=".MenuActivity"/>
+        <!--activity android:name=".MenuActivity"/-->
         <activity android:name=".EatActivity"/>
         <activity android:name=".WalkActivity"/>
         <activity android:name=".HealthActivity"/>
         <activity android:name=".RouletteActivity"/>
-        <!--activity android:name=".FamilyActivity"/-->
+        <activity android:name=".FamilyActivity"/>
     </application>
 
 </manifest>
