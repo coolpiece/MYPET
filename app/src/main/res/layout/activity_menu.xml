@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MenuActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="50dp"
+        android:text="MENU"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"></TextView>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:stretchColumns="1"
+        android:layout_marginLeft="120dp"
+    >
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/btn_eat"
+                android:layout_width="0dp"
+                android:layout_height="106dp"
+                android:layout_marginRight="45dp"
+                android:layout_weight="1"
+                android:text="식사"
+                app:layout_constraintEnd_toStartOf="@+id/btn_walk"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="244dp" />
+
+            <Button
+                android:id="@+id/btn_walk"
+                android:layout_width="0dp"
+                android:layout_height="106dp"
+                android:layout_weight="1"
+                android:text="산책"
+                app:layout_constraintBottom_toTopOf="@+id/btn_roulette"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_eat"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="244dp"
+                android:layout_marginBottom="30dp"/>
+        </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/btn_health"
+            android:layout_width="0dp"
+            android:layout_height="106dp"
+            android:text="건강"
+            android:layout_weight="1"
+            android:layout_marginRight="45dp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_roulette"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="386dp" />
+
+        <Button
+            android:id="@+id/btn_roulette"
+            android:layout_width="0dp"
+            android:layout_height="106dp"
+            android:text="당번 정하기"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_health"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="386dp"
+            android:layout_marginBottom="30dp"/>
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/btn_family"
+            android:layout_width="0dp"
+            android:layout_height="106dp"
+            android:text="가족"
+            android:layout_weight="1"
+            android:layout_marginRight="45dp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_community"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="609dp" />
+
+        <Button
+            android:id="@+id/btn_community"
+            android:layout_width="0dp"
+            android:layout_height="106dp"
+            android:text="커뮤니티"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_family"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="609dp" />
+    </TableRow>
+    </TableLayout>
+</RelativeLayout>
