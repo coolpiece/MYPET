@@ -28,7 +28,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".LoginActivity"/>
         <activity android:name=".SignUpActivity"/>
-        <!--<activity android:name=".MenuActivity"/>-->
+        <!--activity android:name=".MenuActivity"/-->
         <activity android:name=".EatActivity"/>
         <activity android:name=".WalkActivity"/>
         <activity android:name=".HealthActivity"/>
