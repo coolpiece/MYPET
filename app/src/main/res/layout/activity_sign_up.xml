@@ -21,7 +21,7 @@
             android:textStyle="bold"/>
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -34,7 +34,7 @@
             android:singleLine="true"/>
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -48,7 +48,7 @@
 
 
         <EditText
-            android:id="@+id/password_check"
+            android:id="@+id/etPassword_check"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -62,6 +62,7 @@
 
 
         <Button
+            android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="회원가입"
