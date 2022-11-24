@@ -37,14 +37,12 @@ public class SignUpActivity extends AppCompatActivity {
         mBtnRegister = findViewById(R.id.btn_register);
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // 회원가입 처리 시작
+            public void onClick(View view) { // 회원가입 처리 시작
                 String strEmail = mEtEmail.getText().toString();
                 String strPassword = mEtPassword.getText().toString();
                 String strPasswordCheck = mEtPasswordCheck.getText().toString();
 
-                if(strPassword.equals(strPasswordCheck)) {
-                    // Firebase Auth 진행
+                if(strPassword.equals(strPasswordCheck)) { // Firebase Auth 진행
                     mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPassword).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
