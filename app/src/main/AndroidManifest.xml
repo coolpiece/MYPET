@@ -13,7 +13,8 @@
         android:theme="@style/Theme.MYPET"
         tools:targetApi="31">
         <activity
-            android:name=".IntroActivity" android:exported="true">
+            android:name=".IntroActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,15 +25,17 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".SignUpActivity"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".MenuActivity"/>
-        <activity android:name=".EatActivity"/>
-        <activity android:name=".WalkActivity"/>
-        <activity android:name=".HealthActivity"/>
-        <activity android:name=".RouletteActivity"/>
-        <activity android:name=".FamilyActivity"/>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".EatActivity" />
+        <activity android:name=".WalkActivity" />
+        <activity android:name=".HealthActivity" />
+        <activity android:name=".RouletteActivity" />
+        <activity android:name=".FamilyActivity" />
+        <activity android:name=".CommunityActivity"/>
+        <activity android:name=".AddPostActivity"/>
     </application>
 
 </manifest>

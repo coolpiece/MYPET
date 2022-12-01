@@ -21,26 +21,44 @@
             android:textColor="@color/black"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="이메일"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginBottom="5dp"
             android:minHeight="48dp"
-            android:hint="이메일"
+            android:hint="이메일 입력"
             android:textSize="15sp"
             android:textColorHint="@color/hint"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="비밀번호"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginBottom="20dp"
             android:minHeight="48dp"
-            android:hint="비밀번호"
+            android:hint="비밀번호 입력"
             android:textSize="15sp"
             android:textColorHint="@color/hint"
             android:inputType="textPassword"
@@ -51,9 +69,11 @@
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginBottom="0dp"
             android:text="로그인"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

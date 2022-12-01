@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="&lt;"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                android:background="@color/transparent"
+                android:layout_marginTop="3dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="글 쓰기"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_add_post_image"
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:drawableTop="@drawable/ic_camera"
+                android:text="photo"
+                android:textColor="@color/hint"
+                android:textSize="10sp"
+                android:backgroundTint="#FFFFFF"
+                android:layout_margin="10dp"
+                android:paddingVertical="15dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/image_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:minHeight="48dp"
+            android:hint="제목"
+            android:textSize="15sp"
+            android:textColorHint="@color/hint"
+            android:maxLines="1"
+            android:singleLine="true"/>
+
+        <EditText
+            android:id="@+id/etContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:minHeight="48dp"
+            android:hint="내용을 입력하세요."
+            android:textSize="15sp"
+            android:textColorHint="@color/hint"
+            android:gravity="top"
+            android:lines="20"/>
+
+        <Button
+            android:id="@+id/btn_add_post_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="확인"
+            android:textStyle="bold" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
