@@ -19,14 +19,6 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        btn_walk = findViewById(R.id.btn_walk);
-        btn_walk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, com.example.mypet.WalkActivity.class);
-                startActivity(intent); //액티비티 이동
-            }
-        });
 
         btn_eat = findViewById(R.id.btn_eat);
         btn_eat.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +28,16 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent); //액티비티 이동
             }
         });
+
+        btn_walk = findViewById(R.id.btn_walk);
+        btn_walk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this, com.example.mypet.WalkActivity.class);
+                startActivity(intent); //액티비티 이동
+            }
+        });
+
 
         btn_health = findViewById(R.id.btn_health);
         btn_health.setOnClickListener(new View.OnClickListener() {
