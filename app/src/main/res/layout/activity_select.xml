@@ -8,13 +8,15 @@
 
     <Button
         android:id="@+id/btn_plus"
-        android:layout_width="192dp"
-        android:layout_height="115dp"
-        android:text="Button"
+        android:layout_width="242dp"
+        android:layout_height="86dp"
+        android:text="반려동물 추가하기"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="302dp" />
+        tools:layout_editor_absoluteY="322dp" />
 
     <TextView
         android:id="@+id/textView"

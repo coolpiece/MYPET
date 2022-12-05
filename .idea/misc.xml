@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/MYPET/app/src/main/res/layout/activity_ani_select.xml" value="0.1" />
+        <entry key="..\:/MYPET/app/src/main/res/layout/activity_enroll.xml" value="0.33" />
+        <entry key="..\:/MYPET/app/src/main/res/layout/activity_menu.xml" value="0.3088768115942029" />
+        <entry key="..\:/MYPET/app/src/main/res/layout/activity_menu_health.xml" value="0.29393115942028986" />
+        <entry key="..\:/MYPET/app/src/main/res/layout/activity_modify_pet_information.xml" value="0.29393115942028986" />
+        <entry key="..\:/MYPET/app/src/main/res/layout/activity_petselect.xml" value="0.33" />
+        <entry key="..\:/MYPET/app/src/main/res/layout/activity_select.xml" value="0.33" />
+        <entry key="..\:/MYPET/app/src/main/res/layout/activity_signup.xml" value="0.2938388625592417" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
