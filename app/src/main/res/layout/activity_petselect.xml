@@ -10,7 +10,9 @@
         android:id="@+id/btn_plusplus"
         android:layout_width="253dp"
         android:layout_height="46dp"
+        android:layout_marginTop="500dp"
         android:text="반려동물 추가하기"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

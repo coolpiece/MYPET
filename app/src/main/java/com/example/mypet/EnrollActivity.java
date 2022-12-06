@@ -18,7 +18,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EnrollActivity extends AppCompatActivity {
     private static final String TAG = "Petinfo";
@@ -93,15 +97,20 @@ public class EnrollActivity extends AppCompatActivity {
             String Pet = getPet(v);
 
             if(name.length()>0&&birth.length()>5&&category.length()>0&&Sex!=null&&Pet!=null) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                Map<String, Object> user = new HashMap<>();
+                user.put("first", "Ada");
+                user.put("last", "Lovelace");
+                user.put("born", 1815);
 
                 Petinfo petinfo = new Petinfo(name, category, birth);
                 if (user!=null) {
-                    db.collection("users").document(user.getUid()).set(petinfo)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    db.collection("users")
+                            .add(user)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
-                                public void onSuccess(Void aVoid) {
+                                public void onSuccess(DocumentReference documentReference) {
                                     startToast("반려동물정보 등록을 성공하였습니다.");
                                     finish();
                                 }

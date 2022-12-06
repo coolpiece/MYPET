@@ -61,7 +61,7 @@ public class PetselectActivity extends AppCompatActivity {
         btn_plusplus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PetselectActivity.this, MenuActivity.class);
+                Intent intent = new Intent(PetselectActivity.this, EnrollActivity.class);
                 startActivity(intent); //액티비티 이동
             }
         });
