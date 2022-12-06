@@ -1,14 +1,10 @@
 package com.example.mypet;
 
-import static android.app.Activity.RESULT_OK;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,12 +12,8 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -35,9 +27,9 @@ public class AddPostActivity extends AppCompatActivity {
     private Button btn_back;
     private Button btn_add_post_image;
     private Button btn_add_post_confirm;
-    ArrayList<Uri> uriList = new ArrayList<>();
-    RecyclerView recyclerView;
-    AddPostImageAdapter adapter;
+    private ArrayList<Uri> mArrayList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private AddPostImageAdapter mAdapter;
     int count = 0; // 사진 개수 저장
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -47,12 +39,13 @@ public class AddPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
 
+        recyclerView = findViewById(R.id.image_recyclerview);
+
         btn_back = (Button) findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddPostActivity.this, CommunityActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -77,7 +70,13 @@ public class AddPostActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.image_recyclerview);
+        mAdapter.setOnItemClickListener(new AddPostImageAdapter.OnItemClickListener() {
+            @Override
+            public void onDeleteClick(View v, int position) {
+                mArrayList.remove(position);
+                mAdapter.notifyItemRemoved(position);
+            }
+        });
     }
 
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -97,19 +96,19 @@ public class AddPostActivity extends AppCompatActivity {
                         return;
                     } else if(clipData.getItemCount() == 1) {
                         Uri uri = clipData.getItemAt(0).getUri();
-                        uriList.add(uri);
-                        adapter = new AddPostImageAdapter(uriList, getApplicationContext());
-                        recyclerView.setAdapter(adapter);
+                        mArrayList.add(uri);
+                        mAdapter = new AddPostImageAdapter(mArrayList, getApplicationContext());
+                        recyclerView.setAdapter(mAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(AddPostActivity.this, LinearLayoutManager.HORIZONTAL, false));
                     } else {
                         for(int i = 0; i < clipData.getItemCount(); i++) {
                             Uri uri = clipData.getItemAt(i).getUri();
-                            uriList.add(uri);
+                            mArrayList.add(uri);
                             int a = clipData.getItemCount();
                             String s = Integer.toString(a);
                         }
-                        adapter = new AddPostImageAdapter(uriList, getApplicationContext());
-                        recyclerView.setAdapter(adapter);
+                        mAdapter = new AddPostImageAdapter(mArrayList, getApplicationContext());
+                        recyclerView.setAdapter(mAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(AddPostActivity.this, LinearLayoutManager.HORIZONTAL, false));
                     }
 

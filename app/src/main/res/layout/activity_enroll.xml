@@ -10,19 +10,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="43dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/petinfo"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:gravity="center"
-            android:text="반려동물정보"
-            android:textColor="#000000"
-            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="반려동물 정보"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="50dp"
             android:textStyle="bold" />
 
         <ImageView
@@ -30,112 +29,125 @@
             android:layout_width="146dp"
             android:layout_height="141dp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/round_mint" />
+            app:srcCompat="@drawable/shape_circle" />
 
         <EditText
             android:id="@+id/Name_Text"
-            android:layout_width="395dp"
-            android:layout_height="65dp"
-            android:layout_margin="5dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="이름" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="5dp"
+            android:minHeight="48dp"
+            android:hint="이름"
+            android:textSize="15sp"
+            android:textColorHint="@color/hint"
+            android:inputType="textPersonName" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="5dp">
 
             <TextView
                 android:id="@+id/textpet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:text="반려동물"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <RadioButton
                 android:id="@+id/radio_cat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
                 android:padding="10dp"
-                android:text="고양이" />
+                android:text="고양이"
+                android:textSize="15sp"/>
 
             <RadioButton
                 android:id="@+id/radio_dog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="강아지" />
-
-            <RadioGroup
-                android:id="@+id/radio_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            </RadioGroup>
-
+                android:text="강아지"
+                android:textSize="15sp"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="5dp">
 
             <TextView
                 android:id="@+id/textgender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:text="성별"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <RadioButton
                 android:id="@+id/radio_girl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
                 android:padding="10dp"
-                android:text="여자" />
+                android:text="여성"
+                android:textSize="15sp"/>
 
             <RadioButton
                 android:id="@+id/radio_boy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
                 android:padding="10dp"
-                android:text="남자" />
+                android:text="남성"
+                android:textSize="15sp" />
 
             <RadioButton
                 android:id="@+id/radio_mid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="중성화"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:text="중성"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <EditText
             android:id="@+id/Category_Text"
-            android:layout_width="395dp"
-            android:layout_height="65dp"
-            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="5dp"
+            android:minHeight="48dp"
             android:hint="종"
-            android:inputType="text"
-            android:text="종" />
+            android:textSize="15sp"
+            android:textColorHint="@color/hint"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/Birth_Text"
-            android:layout_width="395dp"
-            android:layout_height="65dp"
-            android:ems="10"
-            android:hint="생년월일"
-            android:inputType="date"
-            android:text="생년월일" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="5dp"
+            android:minHeight="48dp"
+            android:hint="생년월일  (8글자로 입력 ex : 20221111)"
+            android:textSize="15sp"
+            android:textColorHint="@color/hint"
+            android:inputType="date" />
 
         <Button
             android:id="@+id/btn_enroll"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
             android:text="등록하기"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
