@@ -22,86 +22,73 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class EnrollActivity extends AppCompatActivity {
     private static final String TAG = "Petinfo";
-    int REQUEST_IMAGE_CODE = 1001;
-    private RadioButton radio_girl;
-    private RadioButton radio_boy;
+    private FirebaseFirestore db;
     private Button btn_enroll;
-
-    public String getSex(View v) {
-
-        RadioButton boy = (RadioButton) findViewById(R.id.radio_boy);
-        RadioButton girl = (RadioButton) findViewById(R.id.radio_girl);
-        RadioButton mid = (RadioButton) findViewById(R.id.radio_mid);
-        String Sex = null;
-
-        if (boy.isChecked()) {
-            Sex = boy.getText().toString();
-        } else if (mid.isChecked()) {
-            Sex = mid.getText().toString();
-        } else {
-            Sex = girl.getText().toString();
-        }
-        return Sex;
-    }
-
-    public String getPet(View v) {
-        RadioButton cat = (RadioButton) findViewById(R.id.radio_cat);
-        RadioButton dog = (RadioButton) findViewById(R.id.radio_dog);
-        String Pet = null;
-        if (cat.isChecked()) {
-            Pet = cat.getText().toString();
-        } else {
-            Pet = dog.getText().toString();
-        }
-        return Pet;
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enroll);
-
-        radio_boy = findViewById(R.id.radio_boy);
-        radio_girl = findViewById(R.id.radio_girl);
         btn_enroll = findViewById(R.id.btn_enroll);
-        btn_enroll.setOnClickListener(new View.OnClickListener() {
+        btn_enroll.setOnClickListener(new View.OnClickListener() { // 등록하기 버튼 눌렀을 때
             @Override
             public void onClick(View view) {
-
                 enroll(view);
             }
         });
     }
 
-    private void enroll(View v) {
+    public String selectPet(View v) { // 강아지 || 고양이 선택
+        RadioButton cat = (RadioButton) findViewById(R.id.radio_cat);
+        RadioButton dog = (RadioButton) findViewById(R.id.radio_dog);
+        String pet = null;
+        if (cat.isChecked()) {
+            pet = cat.getText().toString();
+        } else {
+            pet = dog.getText().toString();
+        }
+        return pet;
+    }
+
+    public String selectSex(View v) { // 성별 선택
+        RadioButton boy = (RadioButton) findViewById(R.id.radio_boy);
+        RadioButton girl = (RadioButton) findViewById(R.id.radio_girl);
+        RadioButton mid = (RadioButton) findViewById(R.id.radio_mid);
+        String sex = null;
+
+        if (boy.isChecked()) {
+            sex = boy.getText().toString();
+        } else if (mid.isChecked()) {
+            sex = mid.getText().toString();
+        } else {
+            sex = girl.getText().toString();
+        }
+        return sex;
+    }
+
+    private void enroll(View v) { // 파이어베이스에 등록
         String name = ((EditText) findViewById(R.id.Name_Text)).getText().toString();
+        String pet = selectPet(v);
+        String sex = selectSex(v);
         String category = ((EditText) findViewById(R.id.Category_Text)).getText().toString();
         String birth = ((EditText) findViewById(R.id.Birth_Text)).getText().toString();
-        String Sex = getSex(v);
-        String Pet = getPet(v);
 
-        if (name.length() > 0 && birth.length() == 8 && category.length() > 0 && Sex != null && Pet != null) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            Map<String, Object> user = new HashMap<>();
-            user.put("name", "Altong Park");
-            user.put("age", 27);
-            user.put("gender", "Male");
+        if (name.length() > 0 && birth.length() == 8 && category.length() > 0 && sex != null && pet != null) {
+            Petinfo petinfo = new Petinfo();
+            db = FirebaseFirestore.getInstance();
+            if (petinfo != null) {
+                petinfo.setName(name);
+                petinfo.setPet(pet);
+                petinfo.setSex(sex);
+                petinfo.setCategory(category);
+                petinfo.setBirth(birth);
 
-            Petinfo petinfo = new Petinfo(name, category, birth);
-            if (user != null) {
-                db.collection("users")
-                        .add(user)
+                db.collection("PetInfo").add(petinfo)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {

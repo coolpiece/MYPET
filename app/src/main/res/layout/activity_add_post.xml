@@ -40,6 +40,7 @@
                 android:layout_width="80dp"
                 android:layout_height="90dp"
                 android:drawableTop="@drawable/ic_camera"
+                android:drawablePadding="15dp"
                 android:text="photo"
                 android:textColor="@color/hint"
                 android:textSize="10sp"

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +22,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class PetselectActivity extends AppCompatActivity {
     private static final String TAG = "PetselectActivity";
-
+    private FirebaseUser user;
+    private FirebaseFirestore db;
     private Button btn_plusplus;
     private Intent c;
 
@@ -30,11 +32,12 @@ public class PetselectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_petselect);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
         if(user == null){
             myStartActivity(SelectActivity.class);
-        }else{
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
+        } else{
             DocumentReference docRef = db.collection("users").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -58,8 +61,6 @@ public class PetselectActivity extends AppCompatActivity {
 
         }
 
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

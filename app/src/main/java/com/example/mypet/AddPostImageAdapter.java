@@ -28,7 +28,7 @@ public class AddPostImageAdapter extends RecyclerView.Adapter<AddPostImageAdapte
         this.mListener = listener;
     }
 
-    AddPostImageAdapter(ArrayList<Uri> list, Context context) { // 생성자
+    public AddPostImageAdapter(ArrayList<Uri> list, Context context) { // 생성자
         mData = list;
         mContext = context;
     }
