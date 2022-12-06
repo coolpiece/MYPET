@@ -29,7 +29,7 @@
             android:layout_width="146dp"
             android:layout_height="141dp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/round_mint" />
+            app:srcCompat="@drawable/shape_circle" />
 
         <EditText
             android:id="@+id/Name_Text"
