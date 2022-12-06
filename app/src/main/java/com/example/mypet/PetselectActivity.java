@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -16,10 +17,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class PetselectActivity extends AppCompatActivity {
     private static final String TAG = "PetselectActivity";
-
+    private FirebaseUser user;
+    private FirebaseFirestore db;
     private Button btn_plusplus;
     private Intent c;
 
@@ -28,11 +32,12 @@ public class PetselectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_petselect);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
         if(user == null){
             myStartActivity(SelectActivity.class);
-        }else{
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
+        } else{
             DocumentReference docRef = db.collection("users").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -56,7 +61,24 @@ public class PetselectActivity extends AppCompatActivity {
 
         }
 
-
+        db.collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        // 데이터를 가져오는 작업이 잘 동작했을 떄
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        }
+                        // 데이터를 가져오는 작업이 에러났을 때
+                        else {
+                            Log.w(TAG, "Error => ", task.getException());
+                        }
+                    }
+                });
+        
         btn_plusplus = findViewById(R.id.btn_plusplus);
         btn_plusplus.setOnClickListener(new View.OnClickListener() {
             @Override

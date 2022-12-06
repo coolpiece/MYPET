@@ -69,14 +69,15 @@ public class AddPostActivity extends AppCompatActivity {
 
             }
         });
-
+/*
         mAdapter.setOnItemClickListener(new AddPostImageAdapter.OnItemClickListener() {
             @Override
             public void onDeleteClick(View v, int position) {
                 mArrayList.remove(position);
                 mAdapter.notifyItemRemoved(position);
+                mAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
     }
 
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {

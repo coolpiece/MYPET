@@ -1,34 +1,26 @@
 package com.example.mypet;
 
-import android.widget.EditText;
-
 public class Petinfo {
     private String name;
+    private String pet;
+    private String sex;
     private String category;
     private String birth;
 
-    public Petinfo(String name, String category, String birth){
-        this.name=name;
-        this.category =category;
-        this.birth = birth;
-    }
-public String getName(){
-        return this.name;
-}
-public void setName(String name){
-        this.name=name;
-}
+    public Petinfo() { }
 
-public String getCategory(){
-        return this.category;
-}
-public void setCategory(){
-        this.category=category;
-}
-public String getBirth(){
-        return this.birth;
-}
-public void setBirth(){
-        this.birth=birth;
-}
+    public String getName() { return this.name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getPet() { return this.pet; }
+    public void setPet(String pet) { this.pet = pet; }
+
+    public String getSex() { return this.sex; }
+    public void setSex(String sex) { this.sex = sex; }
+
+    public String getCategory() { return this.category; }
+    public void setCategory(String category) { this.category = category; }
+
+    public String getBirth() { return this.birth; }
+    public void setBirth(String birth) { this.birth = birth; }
 }

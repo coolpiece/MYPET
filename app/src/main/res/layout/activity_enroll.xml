@@ -57,22 +57,28 @@
                 android:text="반려동물"
                 android:textSize="15sp" />
 
-            <RadioButton
-                android:id="@+id/radio_cat"
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:padding="10dp"
-                android:text="고양이"
-                android:textSize="15sp"/>
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/radio_dog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="강아지"
-                android:textSize="15sp"/>
+                <RadioButton
+                    android:id="@+id/radio_cat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:padding="10dp"
+                    android:text="고양이"
+                    android:textSize="15sp"/>
+
+                <RadioButton
+                    android:id="@+id/radio_dog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="강아지"
+                    android:textSize="15sp"/>
+            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
@@ -89,31 +95,36 @@
                 android:text="성별"
                 android:textSize="15sp" />
 
-            <RadioButton
-                android:id="@+id/radio_girl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:padding="10dp"
-                android:text="여성"
-                android:textSize="15sp"/>
+            <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radio_girl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:padding="10dp"
+                    android:text="여성"
+                    android:textSize="15sp"/>
 
-            <RadioButton
-                android:id="@+id/radio_boy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:padding="10dp"
-                android:text="남성"
-                android:textSize="15sp" />
+                <RadioButton
+                    android:id="@+id/radio_boy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:padding="10dp"
+                    android:text="남성"
+                    android:textSize="15sp" />
 
-            <RadioButton
-                android:id="@+id/radio_mid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="중성"
-                android:textSize="15sp" />
+                <RadioButton
+                    android:id="@+id/radio_mid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="중성"
+                    android:textSize="15sp" />
+            </RadioGroup>
         </LinearLayout>
 
         <EditText
