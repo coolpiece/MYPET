@@ -78,6 +78,7 @@ public class EnrollActivity extends AppCompatActivity {
         btn_enroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 enroll(view);
             }
         });
@@ -90,46 +91,23 @@ public class EnrollActivity extends AppCompatActivity {
         String Sex = getSex(v);
         String Pet = getPet(v);
 
-<<<<<<< HEAD
-            if(name.length()>0&&birth.length()>5&&category.length()>0&&Sex!=null&&Pet!=null) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                Map<String, Object> user = new HashMap<>();
-                user.put("first", "Ada");
-                user.put("last", "Lovelace");
-                user.put("born", 1815);
-
-                Petinfo petinfo = new Petinfo(name, category, birth);
-                if (user!=null) {
-                    db.collection("users")
-                            .add(user)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    startToast("반려동물정보 등록을 성공하였습니다.");
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    startToast("반려동물정보 등록에 실패하였습니다.");
-                                    Log.w(TAG, "Error writing document", e);
-                                }
-                            });
-=======
         if (name.length() > 0 && birth.length() == 8 && category.length() > 0 && Sex != null && Pet != null) {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
+            Map<String, Object> user = new HashMap<>();
+            user.put("name", "Altong Park");
+            user.put("age", 27);
+            user.put("gender", "Male");
 
             Petinfo petinfo = new Petinfo(name, category, birth);
             if (user != null) {
-                db.collection("users").document(user.getUid()).set(petinfo)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection("users")
+                        .add(user)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
+                            public void onSuccess(DocumentReference documentReference) {
                                 Toast.makeText(EnrollActivity.this, "반려동물정보 등록을 성공하였습니다.", Toast.LENGTH_SHORT).show();
-                                finish();
+                                Intent intent = new Intent(EnrollActivity.this, PetselectActivity.class);
+                                startActivity(intent); //액티비티 이동
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -139,8 +117,6 @@ public class EnrollActivity extends AppCompatActivity {
                                 Log.w(TAG, "Error writing document", e);
                             }
                         });
->>>>>>> 740f6855a064c98663ea2c17d2fbbdae1c6c6245
-
             }
         } else {
             Toast.makeText(EnrollActivity.this, "반려동물정보를 입력해주세요.", Toast.LENGTH_SHORT).show();

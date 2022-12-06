@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class PetselectActivity extends AppCompatActivity {
     private static final String TAG = "PetselectActivity";
@@ -57,6 +59,25 @@ public class PetselectActivity extends AppCompatActivity {
         }
 
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        // 데이터를 가져오는 작업이 잘 동작했을 떄
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        }
+                        // 데이터를 가져오는 작업이 에러났을 때
+                        else {
+                            Log.w(TAG, "Error => ", task.getException());
+                        }
+                    }
+                });
+        
         btn_plusplus = findViewById(R.id.btn_plusplus);
         btn_plusplus.setOnClickListener(new View.OnClickListener() {
             @Override
