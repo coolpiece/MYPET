@@ -10,17 +10,19 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+    </androidx.recyclerview.widget.RecyclerView>
 
     <Button
         android:id="@+id/btn_plusplus"
-        android:layout_width="262dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
+        android:layout_gravity="bottom"
         android:layout_weight="1"
+        android:foregroundGravity="bottom"
+        android:text="반려동물 추가하기"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="반려동물 추가하기" />
+        android:textStyle="bold" />
 
 
 </LinearLayout>
