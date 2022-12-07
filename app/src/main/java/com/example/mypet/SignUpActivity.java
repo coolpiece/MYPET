@@ -17,10 +17,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증
-    private DatabaseReference  mDatabaseRef; // 실시간 데이터베이스
+    private FirebaseFirestore mFirestore; // 파이어스토어 데이터베이스
     private EditText mEtEmail, mEtNickname, mEtPassword, mEtPasswordCheck;
     private Button mBtnRegister;
 
@@ -30,7 +31,6 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         mFirebaseAuth = FirebaseAuth.getInstance(); // 인스턴스 초기화
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("MYPET");
         mEtEmail = findViewById(R.id.etEmail);
         mEtPassword = findViewById(R.id.etPassword);
         mEtPasswordCheck = findViewById(R.id.etPassword_check);
@@ -45,21 +45,22 @@ public class SignUpActivity extends AppCompatActivity {
                 String strPasswordCheck = mEtPasswordCheck.getText().toString();
                 String strNickname = mEtNickname.getText().toString();
 
-                if (!mEtEmail.getText().toString().equals("") && !mEtPassword.getText().toString().equals("") && !mEtPasswordCheck.getText().toString().equals("") && !mEtNickname.getText().toString().equals("")) { // 이메일과 비밀번호가 공백이 아닌 경우
+                if (!strEmail.equals("") && !strPassword.equals("") && !strPasswordCheck.equals("") && !strNickname.equals("")) { // 이메일과 비밀번호가 공백이 아닌 경우
                     if(strPassword.equals(strPasswordCheck)) { // Firebase Auth 진행
                         mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPassword).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()) {
                                     FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                                    mFirestore = FirebaseFirestore.getInstance();
                                     UserAccount account = new UserAccount();
                                     account.setIdToken(firebaseUser.getUid());
                                     account.setEmailId(firebaseUser.getEmail());
                                     account.setPassword(strPassword);
                                     account.setNickname(strNickname);
 
-                                    // setValue : DB에 insert
-                                    mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
+                                    // 파이어베이스에 연동
+                                    mFirestore.collection("User").document(firebaseUser.getEmail()).collection("UserAccount").document(firebaseUser.getUid()).set(account);
 
                                     Toast.makeText(SignUpActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
                                     finish();
@@ -70,8 +71,8 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                         });
                     }
-                    else {Toast.makeText(SignUpActivity.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();}
-                } else {Toast.makeText(SignUpActivity.this, "정보를 모두 입력하세요.", Toast.LENGTH_LONG).show();}
+                    else { Toast.makeText(SignUpActivity.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show(); }
+                } else { Toast.makeText(SignUpActivity.this, "정보를 모두 입력하세요.", Toast.LENGTH_LONG).show(); }
             }
         });
     }
