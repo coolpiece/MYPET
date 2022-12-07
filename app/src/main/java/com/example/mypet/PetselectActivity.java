@@ -28,23 +28,29 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+
+
+import java.util.Date;
 public class PetselectActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Petinfo> arrayList;
-    private CustomAdapter CustomAdapter;
+    private CustomAdapter customAdapter;
     private static final String TAG = "PetselectActivity";
     private FirebaseFirestore db;
     private DatabaseReference databaseReference;
     private Button btn_plusplus;
+    private boolean updating;
+    private boolean topScrolled;
 
     ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_petselect);
+
+    setContentView(R.layout.activity_petselect);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(true);
@@ -58,9 +64,9 @@ public class PetselectActivity extends AppCompatActivity {
         arrayList = new ArrayList<Petinfo>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
-        CustomAdapter = new CustomAdapter(arrayList, PetselectActivity.this);
+        customAdapter = new CustomAdapter(arrayList, PetselectActivity.this);
 
-        recyclerView.setAdapter(CustomAdapter);
+        recyclerView.setAdapter(customAdapter);
 
         EventChangeListener();
 
@@ -93,7 +99,7 @@ public class PetselectActivity extends AppCompatActivity {
                                 arrayList.add(dc.getDocument().toObject(Petinfo.class));
                             }
 
-                            CustomAdapter.notifyDataSetChanged();
+                            customAdapter.notifyDataSetChanged();
                         }
 
 
@@ -102,3 +108,5 @@ public class PetselectActivity extends AppCompatActivity {
 
     }
 }
+
+//https://blog.naver.com/PostView.naver?blogId=fbfbf1&logNo=222559672787&categoryNo=55&parentCategoryNo=37&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView

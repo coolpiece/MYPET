@@ -1,5 +1,6 @@
 package com.example.mypet;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,35 +19,62 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
 
-    ArrayList<Petinfo> arrayList;
-    Context context;
+    private ArrayList<Petinfo> arrayList;
+    private Activity activity;
 
-
-    public CustomAdapter(ArrayList<Petinfo> arrayList, Context context) {
-        this.arrayList = arrayList;
-        this.context = context;
+    static class CustomViewHolder extends RecyclerView.ViewHolder {
+        CardView cardView;
+        CustomViewHolder(CardView v) {
+            super(v);
+            cardView = v;
+        }
     }
 
+    public CustomAdapter(ArrayList<Petinfo> arrayList, Activity activity) {
+        this.arrayList = arrayList;
+        this.activity = activity;
+    }
 
+    @Override
+    public int getItemViewType(int position){
+        return position;
+    }
 
     @NonNull
     @Override
     public CustomAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
-        return new CustomViewHolder(view);
+        CardView cardView = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        final CustomViewHolder customViewHolder = new CustomViewHolder(cardView);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+            }
+        });
+
+        return customViewHolder;
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull CustomAdapter.CustomViewHolder holder, int position) {
-       Glide.with(holder.itemView)
-               .load(arrayList.get(position).getProfile())
-               .into(holder.profile);
-       holder.text_name.setText(arrayList.get(position).getName());
-       holder.text_pet.setText(arrayList.get(position).getPet());
-       holder.text_birth.setText(String.valueOf(arrayList.get(position).getBirth()));
-    }
 
     @Override
+    public void onBindViewHolder(@NonNull final CustomAdapter.CustomViewHolder holder, int position) {
+        CardView cardView = holder.cardView;
+        ImageView profile = cardView.findViewById(R.id.profile);
+        TextView text_name = cardView.findViewById(R.id.text_name);
+        TextView text_pet = cardView.findViewById(R.id.text_pet);
+        TextView text_birth = cardView.findViewById(R.id.text_birth);
+
+        Petinfo petinfo = arrayList.get(position);
+        if(arrayList.get(position).getProfile() != null){
+            Glide.with(activity).load(arrayList.get(position).getProfile()).centerCrop().override(500).into(profile);
+        }
+        text_name.setText(petinfo.getName());
+        text_pet.setText(petinfo.getPet());
+        text_birth.setText(petinfo.getBirth());
+    }
+
+
+    /*@Override
     public int getItemCount() {
         return arrayList.size();
     }
@@ -65,7 +94,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             this.text_birth = itemView.findViewById(R.id.text_birth);
 
 
-        }
+        }*/
+
+    @Override
+    public int getItemCount() {
+        return arrayList.size();
     }
+
 
 }
