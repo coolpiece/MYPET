@@ -1,5 +1,6 @@
 package com.example.mypet;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -23,6 +26,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -41,36 +45,41 @@ public class PetselectActivity extends AppCompatActivity {
     private static final String TAG = "PetselectActivity";
     private FirebaseFirestore db;
     private Button btn_plusplus;
+    private FirebaseAuth mFirebaseAuth;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_petselect);
 
+    private void RecyclerViewCreate() {
+
+recyclerView = findViewById(R.id.recyclerView);
     petinfoList = new ArrayList<>();
     customAdapter = new CustomAdapter(petinfoList);
-    recyclerView = findViewById(R.id.recyclerView);
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(customAdapter);
 
-   /*     progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(true);
-        progressDialog.setMessage("Fetching Data");
-        progressDialog.show();
+
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_petselect);
 
 
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        arrayList = new ArrayList<Petinfo>();*/
-       db= FirebaseFirestore.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance(); // 인스턴스 초기화
 
-      //  customAdapter = new CustomAdapter(arrayList, PetselectActivity.this);
+    Petinfo petinfo = new Petinfo();
 
-       // recyclerView.setAdapter(customAdapter);*/
 
-        db.collection("PetInfo").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+    db= FirebaseFirestore.getInstance();
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+        UserAccount account = new UserAccount();
+        account.setEmailId(firebaseUser.getEmail());
+        db.collection("User")
+                .document(firebaseUser.getEmail())
+                .collection("Petlist")
+               // .orderBy("name",Query.Direction.DESCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
@@ -81,7 +90,6 @@ public class PetselectActivity extends AppCompatActivity {
                     if(dc.getType()==DocumentChange.Type.ADDED){
                         Petinfo petinfo = dc.getDocument().toObject(Petinfo.class);
                         petinfoList.add(petinfo);
-
                         customAdapter.notifyDataSetChanged();
                     }
 
@@ -90,6 +98,27 @@ public class PetselectActivity extends AppCompatActivity {
 
             }
         });
+        db.collection("User")
+                .document(firebaseUser.getEmail())
+                .collection("Petlist")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                petinfoList.add((Petinfo) document.getData());
+                            }
+
+                            // RecyclerView 생성
+                            RecyclerViewCreate();
+                        } else {
+                            Log.e(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+
         btn_plusplus = findViewById(R.id.btn_plusplus);
         btn_plusplus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,11 +129,6 @@ public class PetselectActivity extends AppCompatActivity {
         });
     }
 
-    private void EventChangeListener() {
-
-
-
-    }
 }
 
 //https://blog.naver.com/PostView.naver?blogId=fbfbf1&logNo=222559672787&categoryNo=55&parentCategoryNo=37&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView

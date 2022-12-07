@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -29,12 +30,14 @@ public class EnrollActivity extends AppCompatActivity {
     private static final String TAG = "Petinfo";
     private FirebaseFirestore db;
     private Button btn_enroll;
+    private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enroll);
         btn_enroll = findViewById(R.id.btn_enroll);
+        mFirebaseAuth = FirebaseAuth.getInstance(); // 인스턴스 초기화
         btn_enroll.setOnClickListener(new View.OnClickListener() { // 등록하기 버튼 눌렀을 때
             @Override
             public void onClick(View view) {
@@ -88,7 +91,14 @@ public class EnrollActivity extends AppCompatActivity {
                 petinfo.setCategory(category);
                 petinfo.setBirth(birth);
 
-                db.collection("PetInfo").add(petinfo)
+
+                FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                UserAccount account = new UserAccount();
+                account.setEmailId(firebaseUser.getEmail());
+                db.collection("User")
+                        .document(firebaseUser.getEmail())
+                        .collection("Petlist")
+                        .add(petinfo)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
