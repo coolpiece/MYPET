@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,15 +16,21 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class AddPostActivity extends AppCompatActivity {
-    private FirebaseUser user;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseFirestore mFirestore;
     private Button btn_back;
     private Button btn_add_post_image;
     private Button btn_add_post_confirm;
@@ -66,7 +73,33 @@ public class AddPostActivity extends AppCompatActivity {
         btn_add_post_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String title = ((EditText) findViewById(R.id.etTitle)).getText().toString();
+                String content = ((EditText) findViewById(R.id.etContent)).getText().toString();
+                if(!title.equals("") && !title.equals("")) {
+                    AddPost addPost = new AddPost();
+                    mFirebaseAuth = FirebaseAuth.getInstance();
+                    FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                    mFirestore = FirebaseFirestore.getInstance();
+                    addPost.setIdToken(firebaseUser.getUid());
+                    addPost.setTitle(title);
+                    addPost.setContent(content);
+                    mFirestore.collection("User").document(firebaseUser.getEmail()).collection("Post").add(addPost)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(AddPostActivity.this, "게시글 등록을 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddPostActivity.this, "게시글 등록을 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    Toast.makeText(AddPostActivity.this, "제목 및 내용을 모두 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 /*
@@ -117,18 +150,5 @@ public class AddPostActivity extends AppCompatActivity {
             }
         }
     });
-
-/*
-        private void storageUpload() {
-            final String title = ((EditText) findViewById(R.id.etTitle)).getText().toString();
-            if(title.length()>0) {
-                loaderLayout.setVisibility(View.VISIBLE);
-                final ArrayList<String> contentsList = new ArrayList<>();
-                final ArrayList<String> formatList = new ArrayList<>();
-                user = FirebaseAuth.getInstance().getCurrentUser();
-                FirebaseFirestore storage = FirebaseFirestore.getInstance();
-                final DocumentReference documentReference = postInfo == null ? firebaseFirestore.collection
-            }
-        }*/
 }
 
