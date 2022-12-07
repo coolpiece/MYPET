@@ -1,84 +1,68 @@
 package com.example.mypet;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import android.widget.Button;
+
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentChange;
+
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 public class PetselectActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Petinfo> arrayList;
+    private CustomAdapter CustomAdapter;
     private static final String TAG = "PetselectActivity";
-    private FirebaseUser user;
     private FirebaseFirestore db;
+    private DatabaseReference databaseReference;
     private Button btn_plusplus;
-    private Intent c;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_petselect);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching Data");
+        progressDialog.show();
+
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        arrayList = new ArrayList<Petinfo>();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
+        CustomAdapter = new CustomAdapter(arrayList, PetselectActivity.this);
 
-        if(user == null){
-            myStartActivity(SelectActivity.class);
-        } else{
-            DocumentReference docRef = db.collection("users").document(user.getUid());
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if(document!=null) {
-                            if (document.exists()) {
-                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+        recyclerView.setAdapter(CustomAdapter);
 
-                            } else {
-                                Log.d(TAG, "No such document");
-                                myStartActivity(SelectActivity.class);//여기 뭐 넣어야할지 매우 .. 고민
-                            }
-                        }
-                    } else {
-                        Log.d(TAG, "get failed with ", task.getException());
-                    }
-                }
-            });
+        EventChangeListener();
 
-        }
-
-        db.collection("users")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        // 데이터를 가져오는 작업이 잘 동작했을 떄
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        }
-                        // 데이터를 가져오는 작업이 에러났을 때
-                        else {
-                            Log.w(TAG, "Error => ", task.getException());
-                        }
-                    }
-                });
-        
         btn_plusplus = findViewById(R.id.btn_plusplus);
         btn_plusplus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,10 +73,31 @@ public class PetselectActivity extends AppCompatActivity {
         });
     }
 
-    private void myStartActivity(Class c){
-        Intent intent = new Intent(this.c);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
+    private void EventChangeListener() {
 
+        db.collection("PetInfo").orderBy("name", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if (error != null){
+
+                            if(progressDialog.isShowing())
+                                progressDialog.dismiss();
+                            Log.e("Firestore error", error.getMessage());
+                            return;
+                        }
+                        for (DocumentChange dc : value.getDocumentChanges()){
+                            if(dc.getType()==DocumentChange.Type.ADDED){
+                                arrayList.add(dc.getDocument().toObject(Petinfo.class));
+                            }
+
+                            CustomAdapter.notifyDataSetChanged();
+                        }
+
+
+                    }
+                });
+
+    }
 }

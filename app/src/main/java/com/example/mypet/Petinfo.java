@@ -6,8 +6,21 @@ public class Petinfo {
     private String sex;
     private String category;
     private String birth;
+    private String profile;
 
-    public Petinfo() { }
+    public Petinfo(){}
+
+    public Petinfo(String name, String pet, String sex, String category, String birth, String profile) {
+        this.name = name;
+        this.pet = pet;
+        this.sex = sex;
+        this.category = category;
+        this.birth = birth;
+        this.profile = profile;
+    }
+
+    public String getProfile() { return this.profile; }
+    public void setProfile(String profile) { this.profile = profile; }
 
     public String getName() { return this.name; }
     public void setName(String name) { this.name = name; }
