@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
             android:text="text1"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textColor="@color/black"/>
 
         <Button
