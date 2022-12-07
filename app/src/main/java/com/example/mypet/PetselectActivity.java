@@ -17,7 +17,6 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentChange;
 
 import com.google.firebase.firestore.EventListener;
@@ -39,7 +38,6 @@ public class PetselectActivity extends AppCompatActivity {
     private CustomAdapter customAdapter;
     private static final String TAG = "PetselectActivity";
     private FirebaseFirestore db;
-    private DatabaseReference databaseReference;
     private Button btn_plusplus;
     private boolean updating;
     private boolean topScrolled;
