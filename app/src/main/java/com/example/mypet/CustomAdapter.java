@@ -20,7 +20,7 @@ import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
     public List<Petinfo> petinfoList;
-    private ArrayList<Petinfo> arrayList;
+    private ArrayList<Petinfo> arrayList = new ArrayList<Petinfo>();
     private Activity activity;
 
   /*  static class CustomViewHolder extends RecyclerView.ViewHolder {
