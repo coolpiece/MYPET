@@ -16,23 +16,25 @@ import com.bumptech.glide.Glide;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
-
-    private ArrayList<Petinfo> arrayList;
+    public List<Petinfo> petinfoList;
+    private ArrayList<Petinfo> arrayList = new ArrayList<Petinfo>();
     private Activity activity;
 
-    static class CustomViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
+  /*  static class CustomViewHolder extends RecyclerView.ViewHolder {
+
         CustomViewHolder(CardView v) {
             super(v);
             cardView = v;
         }
     }
-
-    public CustomAdapter(ArrayList<Petinfo> arrayList, Activity activity) {
+*/
+    public CustomAdapter(List<Petinfo> petinfoList) {
         this.arrayList = arrayList;
         this.activity = activity;
+        this.petinfoList = petinfoList;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     @NonNull
     @Override
     public CustomAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        CardView cardView = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+       /* CardView cardView = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         final CustomViewHolder customViewHolder = new CustomViewHolder(cardView);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,33 +54,54 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             }
         });
 
-        return customViewHolder;
+        return customViewHolder;*/
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        return new CustomViewHolder((CardView) view);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull final CustomAdapter.CustomViewHolder holder, int position) {
-        CardView cardView = holder.cardView;
+      /*  CardView cardView = holder.cardView;
         ImageView profile = cardView.findViewById(R.id.profile);
         TextView text_name = cardView.findViewById(R.id.text_name);
         TextView text_pet = cardView.findViewById(R.id.text_pet);
-        TextView text_birth = cardView.findViewById(R.id.text_birth);
+        TextView text_birth = cardView.findViewById(R.id.text_birth);*/
 
         Petinfo petinfo = arrayList.get(position);
-        if(arrayList.get(position).getProfile() != null){
+      /*  if(arrayList.get(position).getProfile() != null){
             Glide.with(activity).load(arrayList.get(position).getProfile()).centerCrop().override(500).into(profile);
         }
         text_name.setText(petinfo.getName());
         text_pet.setText(petinfo.getPet());
-        text_birth.setText(petinfo.getBirth());
+        text_birth.setText(petinfo.getBirth());*/
+        holder.name.setText(petinfo.getName());
+        holder.category.setText(petinfo.getCategory());
+        holder.birth.setText(petinfo.getBirth());
     }
 
-
-    /*@Override
+    @Override
     public int getItemCount() {
         return arrayList.size();
     }
 
+    public class CustomViewHolder extends RecyclerView.ViewHolder{
+        View view;
+
+        public TextView name;
+        public TextView birth;
+        public TextView category;
+        public CustomViewHolder(View itemView){
+            super(itemView);
+            view=itemView;
+
+            name=view.findViewById(R.id.text_name);
+            birth=view.findViewById(R.id.text_birth);
+            category=view.findViewById(R.id.text_pet);
+        }
+    }
+/*
     public static class CustomViewHolder extends RecyclerView.ViewHolder {
         ImageView profile;
         TextView text_name;
@@ -95,11 +118,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
 
         }*/
-
-    @Override
-    public int getItemCount() {
-        return arrayList.size();
-    }
 
 
 }

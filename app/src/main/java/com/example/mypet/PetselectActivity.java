@@ -17,7 +17,6 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentChange;
 
 import com.google.firebase.firestore.EventListener;
@@ -27,32 +26,31 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
-
-
-import java.util.Date;
 public class PetselectActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Petinfo> arrayList;
+    private List<Petinfo> petinfoList;
     private CustomAdapter customAdapter;
     private static final String TAG = "PetselectActivity";
     private FirebaseFirestore db;
-    private DatabaseReference databaseReference;
     private Button btn_plusplus;
-    private boolean updating;
-    private boolean topScrolled;
-
-    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     setContentView(R.layout.activity_petselect);
 
-        progressDialog = new ProgressDialog(this);
+    petinfoList = new ArrayList<>();
+    customAdapter = new CustomAdapter(petinfoList);
+    recyclerView = findViewById(R.id.recyclerView);
+    recyclerView.setHasFixedSize(true);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setAdapter(customAdapter);
+
+   /*     progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(true);
         progressDialog.setMessage("Fetching Data");
         progressDialog.show();
@@ -61,15 +59,33 @@ public class PetselectActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        arrayList = new ArrayList<Petinfo>();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        db = FirebaseFirestore.getInstance();
-        customAdapter = new CustomAdapter(arrayList, PetselectActivity.this);
+        arrayList = new ArrayList<Petinfo>();*/
+       db= FirebaseFirestore.getInstance();
 
-        recyclerView.setAdapter(customAdapter);
+      //  customAdapter = new CustomAdapter(arrayList, PetselectActivity.this);
 
-        EventChangeListener();
+       // recyclerView.setAdapter(customAdapter);*/
 
+        db.collection("PetInfo").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null){
+                    Log.e("Firestore error", error.getMessage());
+                }
+                for (DocumentChange dc : value.getDocumentChanges()){
+                    if(dc.getType()==DocumentChange.Type.ADDED){
+                        Petinfo petinfo = dc.getDocument().toObject(Petinfo.class);
+                        petinfoList.add(petinfo);
+
+                        customAdapter.notifyDataSetChanged();
+                    }
+
+
+                }
+
+            }
+        });
         btn_plusplus = findViewById(R.id.btn_plusplus);
         btn_plusplus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,29 +98,7 @@ public class PetselectActivity extends AppCompatActivity {
 
     private void EventChangeListener() {
 
-        db.collection("PetInfo").orderBy("name", Query.Direction.ASCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                        if (error != null){
-
-                            if(progressDialog.isShowing())
-                                progressDialog.dismiss();
-                            Log.e("Firestore error", error.getMessage());
-                            return;
-                        }
-                        for (DocumentChange dc : value.getDocumentChanges()){
-                            if(dc.getType()==DocumentChange.Type.ADDED){
-                                arrayList.add(dc.getDocument().toObject(Petinfo.class));
-                            }
-
-                            customAdapter.notifyDataSetChanged();
-                        }
-
-
-                    }
-                });
 
     }
 }
