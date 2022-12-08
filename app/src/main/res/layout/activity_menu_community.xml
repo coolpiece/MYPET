@@ -5,36 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/act_community"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
             android:layout_marginTop="60dp"
             android:layout_marginBottom="50dp"
             android:text="커뮤니티"
-            android:textColor="@color/black"
             android:textSize="20sp"
+            android:textColor="@color/black"
             android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/postList_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="100dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|right">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_add_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="60dp"
             android:backgroundTint="@color/mint"
             app:borderWidth="0dp"
             android:src="@drawable/ic_add" />
-
-
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
