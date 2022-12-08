@@ -41,6 +41,7 @@ public class AddPostActivity extends AppCompatActivity {
     private ArrayList<Uri> mArrayList = new ArrayList<>();
     private RecyclerView recyclerView;
     private AddPostImageAdapter mAdapter;
+    private PostListAdapter mpAdapter;
     String title, content;
     int count = 0; // 사진 개수 저장
 
@@ -132,7 +133,7 @@ public class AddPostActivity extends AppCompatActivity {
     private void addPost(View view) { // 게시글 작성
         title = ((EditText) findViewById(R.id.etTitle)).getText().toString();
         content = ((EditText) findViewById(R.id.etContent)).getText().toString();
-        if (!title.equals("") && !title.equals("")) {
+        if (!title.equals("") && !content.equals("")) {
             AddPost addPost = new AddPost();
             mFirebaseAuth = FirebaseAuth.getInstance();
             FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
@@ -144,7 +145,7 @@ public class AddPostActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            Toast.makeText(AddPostActivity.this, "게시글 등록을 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                            mpAdapter.notifyDataSetChanged();                            Toast.makeText(AddPostActivity.this, "게시글 등록을 성공하였습니다.", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     })

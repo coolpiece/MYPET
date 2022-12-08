@@ -15,10 +15,7 @@
         android:theme="@style/Theme.MYPET"
         tools:targetApi="31">
         <activity
-            android:name=".WalkActivity"
-            android:exported="false" />
-        <activity
-            android:name=".IntroActivity"
+            android:name=".CommunityActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,9 +33,10 @@
         <activity android:name=".MenuActivity" />
         <activity android:name=".EatActivity" />
         <activity android:name=".HealthActivity" />
+        <activity android:name=".WalkActivity" />
         <activity android:name=".RouletteActivity" />
         <activity android:name=".FamilyActivity" />
-        <activity android:name=".CommunityActivity" />
+        <!--activity android:name=".CommunityActivity" /-->
         <activity android:name=".AddPostActivity" />
         <activity android:name=".EnrollActivity" />
         <activity android:name=".SelectActivity" />
