@@ -3,11 +3,8 @@ package com.example.mypet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,16 +22,12 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-
-
-
-import java.util.Date;
 import java.util.List;
+
+
 
 public class PetselectActivity extends AppCompatActivity {
 
@@ -48,9 +41,8 @@ public class PetselectActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
 
 
-    private void RecyclerViewCreate() {
 
-recyclerView = findViewById(R.id.recyclerView);
+   recyclerView = findViewById(R.id.recyclerView);
     petinfoList = new ArrayList<>();
     customAdapter = new CustomAdapter(petinfoList);
     recyclerView.setHasFixedSize(true);
@@ -58,7 +50,7 @@ recyclerView = findViewById(R.id.recyclerView);
     recyclerView.setAdapter(customAdapter);
 
 
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,9 +60,6 @@ recyclerView = findViewById(R.id.recyclerView);
         mFirebaseAuth = FirebaseAuth.getInstance(); // 인스턴스 초기화
 
     Petinfo petinfo = new Petinfo();
-
-
-
     db= FirebaseFirestore.getInstance();
         FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
         UserAccount account = new UserAccount();
