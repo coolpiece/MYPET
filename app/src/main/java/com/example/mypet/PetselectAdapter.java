@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PetselectAdapter extends RecyclerView.Adapter<PetselectAdapter.ViewHolder> {
-    private ArrayList<Petinfo> mInfo = new ArrayList<Petinfo>();
+    private ArrayList<PetInfo> mInfo = new ArrayList<PetInfo>();
     private Context mContext = null;
 
 
@@ -35,7 +35,7 @@ public class PetselectAdapter extends RecyclerView.Adapter<PetselectAdapter.View
         }
     }
 
-    public  PetselectAdapter(ArrayList<AddPost> info, Context context){
+    public  PetselectAdapter(ArrayList<PetInfo> info, Context context){
         mInfo = info;
         mContext = context;
     }

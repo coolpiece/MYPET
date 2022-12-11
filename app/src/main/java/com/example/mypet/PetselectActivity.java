@@ -28,15 +28,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PetselectActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
     //private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<AddPost> mInfo = new ArrayList<AddPost>();;
+    private ArrayList<PetInfo> mInfo = new ArrayList<PetInfo>();;
     private PetselectAdapter mAdapter;
-    //private static final String TAG = "PetselectActivity";
     private FirebaseFirestore db;
     private Button btn_plusplus;
     private FirebaseAuth mFirebaseAuth;
@@ -48,11 +47,12 @@ public class PetselectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_petselect);
         mFirebaseAuth = FirebaseAuth.getInstance(); // 인스턴스 초기화
         FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-        Petinfo petinfo = new Petinfo();
+        PetInfo petInfo = new PetInfo();
         db= FirebaseFirestore.getInstance();
         UserAccount account = new UserAccount();
         account.setEmailId(firebaseUser.getEmail());
-       /* db.collection("User")
+        
+ /*      db.collection("User")
                 .document(firebaseUser.getEmail())
                 .collection("Petlist")
                // .orderBy("name",Query.Direction.DESCENDING)
@@ -65,16 +65,14 @@ public class PetselectActivity extends AppCompatActivity {
                 }
                 for (DocumentChange dc : value.getDocumentChanges()){
                     if(dc.getType()==DocumentChange.Type.ADDED){
-                        Petinfo petinfo = dc.getDocument().toObject(Petinfo.class);
+                        PetInfo petinfo = dc.getDocument().toObject(PetInfo.class);
                         mInfo.add(petinfo);
                         PetselectAdapter.notifyDataSetChanged();
                     }
-
-
                 }
-
             }
         });*/
+        
         db.collection("User")
                 .document(firebaseUser.getEmail())
                 .collection("Petlist")
@@ -85,7 +83,7 @@ public class PetselectActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 AddPost addPost = document.toObject(AddPost.class);
-                                mInfo.add(addPost);
+                                mInfo.add(petInfo);
                                 mAdapter = new PetselectAdapter(mInfo, getApplicationContext());
                                 recyclerView = findViewById(R.id.postList_recyclerview);
                                 recyclerView.setAdapter(mAdapter);

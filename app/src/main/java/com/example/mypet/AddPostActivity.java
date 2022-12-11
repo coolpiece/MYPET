@@ -29,7 +29,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddPostActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -42,7 +45,7 @@ public class AddPostActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AddPostImageAdapter mAdapter;
     private PostListAdapter mpAdapter;
-    String title, content;
+    String title, content, time;
     int count = 0; // 사진 개수 저장
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -109,7 +112,6 @@ public class AddPostActivity extends AppCompatActivity {
                         for (int i = 0; i < clipData.getItemCount(); i++) {
                             Uri uri = clipData.getItemAt(i).getUri();
                             mArrayList.add(uri);
-                            // int a = clipData.getItemCount();
                         }
                         mAdapter = new AddPostImageAdapter(mArrayList, getApplicationContext());
                         recyclerView.setAdapter(mAdapter);
@@ -133,6 +135,9 @@ public class AddPostActivity extends AppCompatActivity {
     private void addPost(View view) { // 게시글 작성
         title = ((EditText) findViewById(R.id.etTitle)).getText().toString();
         content = ((EditText) findViewById(R.id.etContent)).getText().toString();
+        long now = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        time = sdf.format(new Date(now));
         if (!title.equals("") && !content.equals("")) {
             AddPost addPost = new AddPost();
             mFirebaseAuth = FirebaseAuth.getInstance();
@@ -141,11 +146,12 @@ public class AddPostActivity extends AppCompatActivity {
             addPost.setIdToken(firebaseUser.getUid());
             addPost.setTitle(title);
             addPost.setContent(content);
-            mFirestore.collection("User").document(firebaseUser.getEmail()).collection("Post").add(addPost)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            addPost.setTime(time);
+            mFirestore.collection("User").document(firebaseUser.getEmail()).collection("Post").document(addPost.getTime()).set(addPost)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            mpAdapter.notifyDataSetChanged();                            Toast.makeText(AddPostActivity.this, "게시글 등록을 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(AddPostActivity.this, "게시글 등록을 성공하였습니다.", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     })

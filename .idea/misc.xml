@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MYPET/app/src/main/res/layout/activity_alarm.xml" value="0.1" />
         <entry key="..\:/MYPET/app/src/main/res/layout/activity_ani_select.xml" value="0.1" />
-        <entry key="..\:/MYPET/app/src/main/res/layout/activity_eat_alarm.xml" value="0.1" />
+        <entry key="..\:/MYPET/app/src/main/res/layout/activity_eat_alarm.xml" value="0.25" />
         <entry key="..\:/MYPET/app/src/main/res/layout/activity_enroll.xml" value="0.33" />
         <entry key="..\:/MYPET/app/src/main/res/layout/activity_login.xml" value="0.16271442986881937" />
         <entry key="..\:/MYPET/app/src/main/res/layout/activity_menu.xml" value="0.3088768115942029" />
