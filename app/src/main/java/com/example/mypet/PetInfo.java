@@ -1,6 +1,6 @@
 package com.example.mypet;
 
-public class Petinfo {
+public class PetInfo {
     private String name;
     private String pet;
     private String sex;
@@ -8,16 +8,7 @@ public class Petinfo {
     private String birth;
     private String profile;
 
-    public Petinfo(){}
-
-    public Petinfo(String name, String pet, String sex, String category, String birth, String profile) {
-        this.name = name;
-        this.pet = pet;
-        this.sex = sex;
-        this.category = category;
-        this.birth = birth;
-        this.profile = profile;
-    }
+    public PetInfo() { }
 
     public String getProfile() { return this.profile; }
     public void setProfile(String profile) { this.profile = profile; }

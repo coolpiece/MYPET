@@ -32,7 +32,7 @@ public class PetselectActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private List<Petinfo> petinfoList;
+    private List<PetInfo> petInfoList;
     private CustomAdapter customAdapter;
     private static final String TAG = "PetselectActivity";
     private FirebaseFirestore db;
@@ -43,8 +43,8 @@ public class PetselectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_petselect);
 
-    petinfoList = new ArrayList<>();
-    customAdapter = new CustomAdapter(petinfoList);
+    petInfoList = new ArrayList<>();
+    customAdapter = new CustomAdapter(petInfoList);
     recyclerView = findViewById(R.id.recyclerView);
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -75,8 +75,8 @@ public class PetselectActivity extends AppCompatActivity {
                 }
                 for (DocumentChange dc : value.getDocumentChanges()){
                     if(dc.getType()==DocumentChange.Type.ADDED){
-                        Petinfo petinfo = dc.getDocument().toObject(Petinfo.class);
-                        petinfoList.add(petinfo);
+                        PetInfo petinfo = dc.getDocument().toObject(PetInfo.class);
+                        petInfoList.add(petinfo);
 
                         customAdapter.notifyDataSetChanged();
                     }

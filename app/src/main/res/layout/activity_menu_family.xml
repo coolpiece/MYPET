@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:layout_marginRight="10dp"
             android:text="+ 가족 구성원 추가"
             android:textColor="@color/black"
             android:textSize="12sp"
