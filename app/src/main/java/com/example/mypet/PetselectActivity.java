@@ -3,6 +3,7 @@ package com.example.mypet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,46 +27,32 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.List;
-
+import java.util.ArrayList;
 
 
 public class PetselectActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private List<Petinfo> petinfoList;
-    private CustomAdapter customAdapter;
-    private static final String TAG = "PetselectActivity";
+    //private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<AddPost> mInfo = new ArrayList<AddPost>();;
+    private PetselectAdapter mAdapter;
+    //private static final String TAG = "PetselectActivity";
     private FirebaseFirestore db;
     private Button btn_plusplus;
     private FirebaseAuth mFirebaseAuth;
-
-
-
-   recyclerView = findViewById(R.id.recyclerView);
-    petinfoList = new ArrayList<>();
-    customAdapter = new CustomAdapter(petinfoList);
-    recyclerView.setHasFixedSize(true);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    recyclerView.setAdapter(customAdapter);
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_petselect);
-
-
         mFirebaseAuth = FirebaseAuth.getInstance(); // 인스턴스 초기화
-
-    Petinfo petinfo = new Petinfo();
-    db= FirebaseFirestore.getInstance();
         FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+        Petinfo petinfo = new Petinfo();
+        db= FirebaseFirestore.getInstance();
         UserAccount account = new UserAccount();
         account.setEmailId(firebaseUser.getEmail());
-        db.collection("User")
+       /* db.collection("User")
                 .document(firebaseUser.getEmail())
                 .collection("Petlist")
                // .orderBy("name",Query.Direction.DESCENDING)
@@ -78,15 +66,15 @@ public class PetselectActivity extends AppCompatActivity {
                 for (DocumentChange dc : value.getDocumentChanges()){
                     if(dc.getType()==DocumentChange.Type.ADDED){
                         Petinfo petinfo = dc.getDocument().toObject(Petinfo.class);
-                        petinfoList.add(petinfo);
-                        customAdapter.notifyDataSetChanged();
+                        mInfo.add(petinfo);
+                        PetselectAdapter.notifyDataSetChanged();
                     }
 
 
                 }
 
             }
-        });
+        });*/
         db.collection("User")
                 .document(firebaseUser.getEmail())
                 .collection("Petlist")
@@ -96,13 +84,16 @@ public class PetselectActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                petinfoList.add((Petinfo) document.getData());
-                            }
+                                AddPost addPost = document.toObject(AddPost.class);
+                                mInfo.add(addPost);
+                                mAdapter = new PetselectAdapter(mInfo, getApplicationContext());
+                                recyclerView = findViewById(R.id.postList_recyclerview);
+                                recyclerView.setAdapter(mAdapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(PetselectActivity.this, LinearLayoutManager.VERTICAL, false));
 
-                            // RecyclerView 생성
-                            RecyclerViewCreate();
+                            }
                         } else {
-                            Log.e(TAG, "Error getting documents: ", task.getException());
+                            Toast.makeText(PetselectActivity.this, "데이터를 불러오는데 실패했습니다.", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -119,5 +110,3 @@ public class PetselectActivity extends AppCompatActivity {
     }
 
 }
-
-//https://blog.naver.com/PostView.naver?blogId=fbfbf1&logNo=222559672787&categoryNo=55&parentCategoryNo=37&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView

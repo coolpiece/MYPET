@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PetselectActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content" >
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button
         android:id="@+id/btn_plusplus"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:layout_weight="1"
-        android:foregroundGravity="bottom"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="0dp"
         android:text="반려동물 추가하기"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
 

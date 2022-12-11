@@ -36,4 +36,5 @@ public class Petinfo {
 
     public String getBirth() { return this.birth; }
     public void setBirth(String birth) { this.birth = birth; }
+
 }
