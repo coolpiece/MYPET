@@ -41,8 +41,8 @@ public class CommunityActivity extends AppCompatActivity {
     private FloatingActionButton btn_add_post;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onStart() {
+        super.onStart();
         setContentView(R.layout.activity_menu_community);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -53,14 +53,16 @@ public class CommunityActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
+                            mArrayList.clear();
                             for(QueryDocumentSnapshot document : task.getResult()) {
                                 AddPost addPost = document.toObject(AddPost.class);
                                 mArrayList.add(addPost);
-                                mAdapter = new PostListAdapter(mArrayList, getApplicationContext());
-                                recyclerView = findViewById(R.id.postList_recyclerview);
-                                recyclerView.setAdapter(mAdapter);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(CommunityActivity.this, LinearLayoutManager.VERTICAL, false));
                             }
+                            mAdapter = new PostListAdapter(mArrayList, getApplicationContext());
+                            recyclerView = findViewById(R.id.postList_recyclerview);
+                            recyclerView.setAdapter(mAdapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(CommunityActivity.this, LinearLayoutManager.VERTICAL, false));
+                            mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
                         } else {
                             Toast.makeText(CommunityActivity.this, "데이터를 불러오는데 실패했습니다.", Toast.LENGTH_LONG).show();
                         }

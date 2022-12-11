@@ -5,13 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -20,14 +17,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import com.google.firebase.firestore.auth.User;
 
 public class EnrollActivity extends AppCompatActivity {
-    private static final String TAG = "Petinfo";
-    private FirebaseFirestore db;
+    private  FirebaseAuth mFirebaseAuth;
+    private FirebaseFirestore mFirestore;
     private Button btn_enroll;
 
     @Override
@@ -35,10 +29,16 @@ public class EnrollActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enroll);
         btn_enroll = findViewById(R.id.btn_enroll);
+        mFirebaseAuth = FirebaseAuth.getInstance(); // 인스턴스 초기화
         btn_enroll.setOnClickListener(new View.OnClickListener() { // 등록하기 버튼 눌렀을 때
             @Override
             public void onClick(View view) {
-                enroll(view);
+                enroll(view); // 동물 정보 등록 과정
+                mFirebaseAuth = FirebaseAuth.getInstance(); // 등록한 동물 Uid 사용자 정보에 등록
+                FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                mFirestore = FirebaseFirestore.getInstance();
+                String petUid = mFirestore.collection("PetInfo").document().getId(); // 펫 고유번호
+                mFirestore.collection("User").document(firebaseUser.getEmail()).collection("PetList").document(petUid).set(petUid);
             }
         });
     }
@@ -79,8 +79,8 @@ public class EnrollActivity extends AppCompatActivity {
         String birth = ((EditText) findViewById(R.id.Birth_Text)).getText().toString();
 
         if (name.length() > 0 && birth.length() == 8 && category.length() > 0 && sex != null && pet != null) {
-            Petinfo petinfo = new Petinfo();
-            db = FirebaseFirestore.getInstance();
+            PetInfo petinfo = new PetInfo();
+            mFirestore = FirebaseFirestore.getInstance();
             if (petinfo != null) {
                 petinfo.setName(name);
                 petinfo.setPet(pet);
@@ -88,7 +88,7 @@ public class EnrollActivity extends AppCompatActivity {
                 petinfo.setCategory(category);
                 petinfo.setBirth(birth);
 
-                db.collection("PetInfo").add(petinfo)
+                mFirestore.collection("PetInfo").add(petinfo) // 동물 정보 등록
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
@@ -101,7 +101,6 @@ public class EnrollActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(EnrollActivity.this, "반려동물정보 등록에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-                                Log.w(TAG, "Error writing document", e);
                             }
                         });
             }

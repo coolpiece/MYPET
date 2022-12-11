@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
-    public List<Petinfo> petinfoList;
-    private ArrayList<Petinfo> arrayList = new ArrayList<Petinfo>();
+    public List<PetInfo> petInfoList;
+    private ArrayList<PetInfo> arrayList = new ArrayList<PetInfo>();
     private Activity activity;
 
   /*  static class CustomViewHolder extends RecyclerView.ViewHolder {
@@ -31,10 +31,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         }
     }
 */
-    public CustomAdapter(List<Petinfo> petinfoList) {
+    public CustomAdapter(List<PetInfo> petInfoList) {
         this.arrayList = arrayList;
         this.activity = activity;
-        this.petinfoList = petinfoList;
+        this.petInfoList = petInfoList;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         TextView text_pet = cardView.findViewById(R.id.text_pet);
         TextView text_birth = cardView.findViewById(R.id.text_birth);*/
 
-        Petinfo petinfo = arrayList.get(position);
+        PetInfo petinfo = arrayList.get(position);
       /*  if(arrayList.get(position).getProfile() != null){
             Glide.with(activity).load(arrayList.get(position).getProfile()).centerCrop().override(500).into(profile);
         }

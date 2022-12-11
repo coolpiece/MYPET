@@ -1,20 +1,22 @@
 package com.example.mypet;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -22,51 +24,39 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PetselectActivity extends AppCompatActivity {
 
+public class PetselectActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private List<Petinfo> petinfoList;
-    private CustomAdapter customAdapter;
-    private static final String TAG = "PetselectActivity";
+    //private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<PetInfo> mInfo = new ArrayList<PetInfo>();;
+    private PetselectAdapter mAdapter;
     private FirebaseFirestore db;
     private Button btn_plusplus;
+    private FirebaseAuth mFirebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_petselect);
-
-    petinfoList = new ArrayList<>();
-    customAdapter = new CustomAdapter(petinfoList);
-    recyclerView = findViewById(R.id.recyclerView);
-    recyclerView.setHasFixedSize(true);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    recyclerView.setAdapter(customAdapter);
-
-   /*     progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(true);
-        progressDialog.setMessage("Fetching Data");
-        progressDialog.show();
-
-
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        arrayList = new ArrayList<Petinfo>();*/
-       db= FirebaseFirestore.getInstance();
-
-      //  customAdapter = new CustomAdapter(arrayList, PetselectActivity.this);
-
-       // recyclerView.setAdapter(customAdapter);*/
-
-        db.collection("PetInfo").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        setContentView(R.layout.activity_petselect);
+        mFirebaseAuth = FirebaseAuth.getInstance(); // 인스턴스 초기화
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+        PetInfo petInfo = new PetInfo();
+        db= FirebaseFirestore.getInstance();
+        UserAccount account = new UserAccount();
+        account.setEmailId(firebaseUser.getEmail());
+        
+ /*      db.collection("User")
+                .document(firebaseUser.getEmail())
+                .collection("Petlist")
+               // .orderBy("name",Query.Direction.DESCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
@@ -75,17 +65,38 @@ public class PetselectActivity extends AppCompatActivity {
                 }
                 for (DocumentChange dc : value.getDocumentChanges()){
                     if(dc.getType()==DocumentChange.Type.ADDED){
-                        Petinfo petinfo = dc.getDocument().toObject(Petinfo.class);
-                        petinfoList.add(petinfo);
-
-                        customAdapter.notifyDataSetChanged();
+                        PetInfo petinfo = dc.getDocument().toObject(PetInfo.class);
+                        mInfo.add(petinfo);
+                        PetselectAdapter.notifyDataSetChanged();
                     }
-
-
                 }
-
             }
-        });
+        });*/
+        
+        db.collection("User")
+                .document(firebaseUser.getEmail())
+                .collection("Petlist")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                AddPost addPost = document.toObject(AddPost.class);
+                                mInfo.add(petInfo);
+                                mAdapter = new PetselectAdapter(mInfo, getApplicationContext());
+                                recyclerView = findViewById(R.id.postList_recyclerview);
+                                recyclerView.setAdapter(mAdapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(PetselectActivity.this, LinearLayoutManager.VERTICAL, false));
+
+                            }
+                        } else {
+                            Toast.makeText(PetselectActivity.this, "데이터를 불러오는데 실패했습니다.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+
         btn_plusplus = findViewById(R.id.btn_plusplus);
         btn_plusplus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,11 +107,4 @@ public class PetselectActivity extends AppCompatActivity {
         });
     }
 
-    private void EventChangeListener() {
-
-
-
-    }
 }
-
-//https://blog.naver.com/PostView.naver?blogId=fbfbf1&logNo=222559672787&categoryNo=55&parentCategoryNo=37&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView
