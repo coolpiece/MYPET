@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 public class EnrollActivity extends AppCompatActivity {
     private  FirebaseAuth mFirebaseAuth;
@@ -28,6 +29,7 @@ public class EnrollActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enroll);
         btn_enroll = findViewById(R.id.btn_enroll);
+        mFirebaseAuth = FirebaseAuth.getInstance(); // 인스턴스 초기화
         btn_enroll.setOnClickListener(new View.OnClickListener() { // 등록하기 버튼 눌렀을 때
             @Override
             public void onClick(View view) {

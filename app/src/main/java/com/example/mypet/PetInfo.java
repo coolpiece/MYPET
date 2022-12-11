@@ -27,4 +27,5 @@ public class PetInfo {
 
     public String getBirth() { return this.birth; }
     public void setBirth(String birth) { this.birth = birth; }
+
 }
