@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="anoroid.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="anoroid.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MYPET"
         tools:targetApi="31">
         <activity
+            android:name=".StopwatchActivity"
+            android:exported="false" />
+        <activity
             android:name=".IntroActivity"
             android:exported="true">
             <intent-filter>
@@ -23,6 +26,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -41,13 +45,12 @@
         <activity android:name=".EnrollActivity" />
         <activity android:name=".SelectActivity" />
         <activity android:name=".PetselectActivity" />
-    <activity android:name = ".EatAlarmActivity"/>
+        <activity android:name=".EatAlarmActivity" />
 
-<receiver android:name=".AlarmReceiver"
-    android:enabled="true"
-    android:exported="false"
-/>
-
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>
