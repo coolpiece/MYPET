@@ -2,6 +2,7 @@ package com.example.mypet;
 
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -45,7 +47,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (!strEmail.equals("") && !strPassword.equals("") && !strPasswordCheck.equals("") && !strNickname.equals("")) { // 이메일과 비밀번호가 공백이 아닌 경우
                     if(strPassword.equals(strPasswordCheck)) { // Firebase Auth 진행
-                        mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPassword).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                        mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPassword)
+                        .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()) {
@@ -57,9 +60,11 @@ public class SignUpActivity extends AppCompatActivity {
                                     account.setPassword(strPassword);
                                     account.setNickname(strNickname);
 
-                                    // 파이어베이스에 연동
-                                    mFirestore.collection("User").document(firebaseUser.getEmail()).collection("UserAccount").document(firebaseUser.getUid()).set(account);
+                                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(strNickname).build(); // 닉네임 추가
+                                    firebaseUser.updateProfile(profileChangeRequest);
 
+                                    // 파이어스토어에 연동
+                                    mFirestore.collection("User").document(firebaseUser.getEmail()).collection("UserAccount").document(firebaseUser.getUid()).set(account);
                                     Toast.makeText(SignUpActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }

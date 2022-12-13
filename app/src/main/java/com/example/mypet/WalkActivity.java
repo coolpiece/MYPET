@@ -3,25 +3,20 @@ package com.example.mypet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 public class WalkActivity extends AppCompatActivity {
 
-    public String fname=null;
+    public String fname = null;
     public String str=null;
     public CalendarView calendarView;
     public Button cha_Btn,del_Btn,save_Btn;
@@ -33,6 +28,7 @@ public class WalkActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk);
+
         calendarView=findViewById(R.id.calendarView);
         diaryTextView=findViewById(R.id.diaryTextView);
         save_Btn=findViewById(R.id.save_Btn);
@@ -41,9 +37,12 @@ public class WalkActivity extends AppCompatActivity {
         textView2=findViewById(R.id.textView2);
         textView3=findViewById(R.id.textView3);
         contextEditText=findViewById(R.id.contextEditText);
+
         //로그인 및 회원가입 엑티비티에서 이름을 받아옴
-        Intent intent=getIntent();
-        String name=intent.getStringExtra("userName");
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String petUid = bundle.getString("PETUID");
+        String name = intent.getStringExtra("userName");
         final String userID=intent.getStringExtra("userID");
         textView3.setText(name+"님의 달력 일기장");
         stopwatch = findViewById(R.id.stopwatch);

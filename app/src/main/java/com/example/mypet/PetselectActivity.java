@@ -51,7 +51,27 @@ public class PetselectActivity extends AppCompatActivity {
         db= FirebaseFirestore.getInstance();
         UserAccount account = new UserAccount();
         account.setEmailId(firebaseUser.getEmail());
-        
+
+        /* 서윤 추가 ! 방식 바꿨는데 여기서 써먹을 수 있을지도... ㅋㅎ
+        mFirebaseFirestore.collectionGroup("MemberList").whereEqualTo("userUid", myUid).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            String petUid = document.getData().get("petUid").toString(); // 현재 사용자의 Uid가 들어있는 반려동물 목록 불러오기
+                            mArrayList.add(petUid);
+
+                            Iterator<String> iterator = map.keySet().iterator();
+                            while(iterator.hasNext()) {
+                                String key = (String) iterator.next(); //
+                                Log.d("********", map.get(key).toString());
+                                }
+                        }
+                    }
+                });*/
+
+
+
  /*      db.collection("User")
                 .document(firebaseUser.getEmail())
                 .collection("Petlist")
