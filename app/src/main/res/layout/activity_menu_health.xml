@@ -6,14 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".HealthActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="건강하세요"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-></TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="몸무게 변화 그래프"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"></TextView>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+        <EditText
+            android:id="@+id/editTextNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="20"
+            android:hint="몸무게를 입력하세요"
+            android:inputType="number"
+            android:minHeight="48dp" />
+
+        <Button
+            android:id="@+id/btnplus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="값추가하기" />
+    </LinearLayout>
+
+
 </RelativeLayout>
