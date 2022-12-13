@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context=".EatActivity">
 
-
     <Button
         android:id="@+id/btn_plusplus"
         android:layout_width="match_parent"
@@ -14,7 +13,7 @@
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="0dp"
-        android:text="식사알람 등록하기"
+        android:text="식사 알람 등록하기"
         android:textSize="18sp"
         android:textStyle="bold" />
 
