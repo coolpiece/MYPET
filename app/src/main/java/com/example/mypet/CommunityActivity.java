@@ -45,6 +45,10 @@ public class CommunityActivity extends AppCompatActivity {
         super.onStart();
         setContentView(R.layout.activity_menu_community);
 
+        Intent intent = getIntent(); // PETUID 전달받음
+        Bundle bundle = intent.getExtras();
+        String petUid = bundle.getString("PETUID");
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();

@@ -1,5 +1,6 @@
 package com.example.mypet;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -28,6 +29,10 @@ public class RouletteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_roulette);
+
+        Intent intent = getIntent(); // PETUID 전달받음
+        Bundle bundle = intent.getExtras();
+        String petUid = bundle.getString("PETUID");
 
         generateWheelItems(); // 점수판 데이터 생성
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,11 +21,16 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        Intent intent = getIntent(); // PETUID 전달받음
+        Bundle bundle = intent.getExtras();
+        String petUid = bundle.getString("PETUID");
+
         btn_eat = findViewById(R.id.btn_eat);
         btn_eat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MenuActivity.this, com.example.mypet.EatActivity.class);
+                intent.putExtra("PETUID", petUid);
                 startActivity(intent); //액티비티 이동
             }
         });
@@ -34,6 +40,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MenuActivity.this, com.example.mypet.WalkActivity.class);
+                intent.putExtra("PETUID", petUid);
                 startActivity(intent); //액티비티 이동
             }
         });
@@ -44,6 +51,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MenuActivity.this, com.example.mypet.HealthActivity.class);
+                intent.putExtra("PETUID", petUid);
                 startActivity(intent); //액티비티 이동
             }
         });
@@ -53,6 +61,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MenuActivity.this, com.example.mypet.RouletteActivity.class);
+                intent.putExtra("PETUID", petUid);
                 startActivity(intent); //액티비티 이동
             }
         });
@@ -62,6 +71,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MenuActivity.this, com.example.mypet.FamilyActivity.class);
+                intent.putExtra("PETUID", petUid);
                 startActivity(intent); //액티비티 이동
             }
         });
@@ -71,6 +81,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MenuActivity.this, com.example.mypet.CommunityActivity.class);
+                intent.putExtra("PETUID", petUid);
                 startActivity(intent); //액티비티 이동
             }
         });
