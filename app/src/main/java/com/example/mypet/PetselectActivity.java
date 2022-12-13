@@ -53,6 +53,8 @@ public class PetselectActivity extends AppCompatActivity {
         account.setEmailId(firebaseUser.getEmail());
 
         /* 서윤 추가 ! 방식 바꿨는데 여기서 써먹을 수 있을지도... ㅋㅎ
+        String myUid = firebaseUser.getUid();
+
         mFirebaseFirestore.collectionGroup("MemberList").whereEqualTo("userUid", myUid).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override

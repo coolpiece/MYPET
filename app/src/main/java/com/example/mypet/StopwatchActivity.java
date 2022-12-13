@@ -36,8 +36,7 @@ public class StopwatchActivity extends AppCompatActivity {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StopwatchActivity.this, WalkActivity.class);
-                startActivity(intent); //액티비티 이동
+                finish();
             }
         });
 

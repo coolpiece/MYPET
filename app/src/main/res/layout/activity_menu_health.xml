@@ -12,13 +12,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="70dp"
             android:text="몸무게 변화 그래프"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
@@ -27,10 +29,13 @@
 
         <EditText
             android:id="@+id/editTextNumber"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
             android:ems="20"
             android:hint="몸무게를 입력하세요"
+            android:textSize="15sp"
             android:inputType="number"
             android:minHeight="48dp" />
 
@@ -38,8 +43,10 @@
             android:id="@+id/btnplus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="값추가하기" />
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:text="값 추가하기"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
     </LinearLayout>
-
-
 </RelativeLayout>

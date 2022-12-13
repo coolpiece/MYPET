@@ -43,8 +43,8 @@ public class WalkActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         String petUid = bundle.getString("PETUID");
         String name = intent.getStringExtra("userName");
-        final String userID=intent.getStringExtra("userID");
-        textView3.setText(name+"님의 달력 일기장");
+        final String userID = intent.getStringExtra("userID");
+        textView3.setText(name + "님의 달력 일기장");
         stopwatch = findViewById(R.id.stopwatch);
         stopwatch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +145,7 @@ public class WalkActivity extends AppCompatActivity {
     }
     @SuppressLint("WrongConstant")
     public void removeDiary(String readDay){
-        FileOutputStream fos=null;
+        FileOutputStream fos = null;
 
         try{
             fos=openFileOutput(readDay,MODE_NO_LOCALIZED_COLLATORS);
@@ -159,7 +159,7 @@ public class WalkActivity extends AppCompatActivity {
     }
     @SuppressLint("WrongConstant")
     public void saveDiary(String readDay){
-        FileOutputStream fos=null;
+        FileOutputStream fos = null;
 
         try{
             fos=openFileOutput(readDay,MODE_NO_LOCALIZED_COLLATORS);

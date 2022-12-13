@@ -17,9 +17,6 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".StopwatchActivity"
-            android:exported="false" />
-        <activity
             android:name=".IntroActivity"
             android:exported="true">
             <intent-filter>
@@ -45,6 +42,22 @@
         <activity android:name=".SelectActivity" />
         <activity android:name=".PetselectActivity" />
         <activity android:name=".EatAlarmActivity" />
+        <activity android:name=".StopwatchActivity"/>
+        <activity
+            android:name=".InviteFamilyLinkActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="mypetsebseo.page.link"
+                    android:scheme="https"/>
+                <data
+                    android:host="mypetsebseo.page.link"
+                    android:scheme="http"/>
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".AlarmReceiver"

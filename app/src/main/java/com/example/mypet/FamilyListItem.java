@@ -2,16 +2,20 @@ package com.example.mypet;
 
 public class FamilyListItem {
     private String name;
+    private String email;
 
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    FamilyListItem(String name) {
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    FamilyListItem(String name, String email) {
         this.name = name;
+        this.email = email;
     }
 }

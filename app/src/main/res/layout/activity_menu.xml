@@ -16,7 +16,7 @@
         android:layout_marginBottom="50dp"
         android:text="MENU"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"></TextView>
 
     <TableLayout

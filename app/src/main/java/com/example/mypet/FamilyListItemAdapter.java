@@ -38,8 +38,11 @@ public class FamilyListItemAdapter extends BaseAdapter {
 
         // 화면에 보여질 데이터를 참조
         TextView nameText = convertView.findViewById(R.id.name);
+        TextView emailText = convertView.findViewById(R.id.email);
+
         //데이터 set
         nameText.setText(listItem.getName());
+        emailText.setText(listItem.getEmail());
 
         return convertView; // convertView View 객체 리턴
     }
