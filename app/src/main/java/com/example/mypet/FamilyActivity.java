@@ -1,6 +1,7 @@
 package com.example.mypet;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -53,43 +57,48 @@ public class FamilyActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-        String myUid = firebaseUser.getUid();
         mFirestore = FirebaseFirestore.getInstance();
         mFirestore.collection("PetInfo").document(petUid).collection("MemberList").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for(QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                             String member = document.getData().get("userNickname").toString();
+                            String memberemail = document.getData().get("userEmail").toString();
+
                             mMemberList.add(member);
+                            adapter.addItem(new FamilyListItem(member, memberemail));
+                            listView.setAdapter(adapter);
                         }
                     }
                 });
-        Log.d("*************", mMemberList.get(0));
-        adapter.addItem(new FamilyListItem(mMemberList.get(0)));
-      /*  adapter.addItem(new FamilyListItem("서윤")); // 가족 구성원 받아와서 추가하는 방식으로 수정해야함 ...
-        adapter.addItem(new FamilyListItem("세빈"));
-        adapter.addItem(new FamilyListItem("승호"));*/
-        listView.setAdapter(adapter);
-
 
         btn_add_family = findViewById(R.id.btn_add_family);
-       /* btn_add_family.setOnClickListener(new View.OnClickListener() {
+        btn_add_family.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userUid = firebaseUser.getUid();
-                userEmail = firebaseUser.getEmail();
-                userNickname = firebaseUser.getDisplayName();
-
-                userData.put("petUid", petUid);
-                userData.put("userUid", userUid);
-                userData.put("userEmail", userEmail);
-                userData.put("userNickname", userNickname);
-
-                mFirestore.collection("PetInfo").document(petUid).collection("MemberList").document(userUid).set(userData)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        }
+                makeInviteLink(petUid);
             }
-        });*/
+        });
+    }
+
+    private void makeInviteLink(String petUid) {
+        FirebaseDynamicLinks.getInstance().createDynamicLink() // 동적 링크 만들기
+                .setLink(Uri.parse("https://www.mypetsebseo.page.link/invite?petUid=" + petUid))
+                .setDomainUriPrefix("https://mypetsebseo.page.link")
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.example.mypet").build())
+                .buildShortDynamicLink()
+                .addOnCompleteListener(this, new OnCompleteListener<ShortDynamicLink>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
+                        if(task.isSuccessful()) {
+                            Uri link = task.getResult().getShortLink();
+                            Intent intent = new Intent(Intent.ACTION_SEND);
+                            intent.putExtra(Intent.EXTRA_TEXT, link.toString());
+                            intent.setType("text/plain");
+                            startActivity(Intent.createChooser(intent, "Share Link"));
+                        }
+                    }
+                });
     }
 }

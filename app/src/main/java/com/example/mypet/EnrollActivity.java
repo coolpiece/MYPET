@@ -33,7 +33,7 @@ public class EnrollActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseFirestore mFirestore;
     private Button btn_enroll;
-    private Map<String, Object> userData = new HashMap<>();
+    private Map<String, String> userData = new HashMap<>();
     private String petUid, userUid, userEmail, userNickname;
 
     @Override
