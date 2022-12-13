@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name = "test">
+        <item>세모 </item>
+        <item>하늘바라기 </item>
+        <item>서윤 </item>
+    </string-array>
+
+</resources>
