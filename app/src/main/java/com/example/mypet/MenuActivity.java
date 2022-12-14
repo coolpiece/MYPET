@@ -20,14 +20,12 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-/*
+
         Intent intent = getIntent(); // PETUID 전달받음
         Bundle bundle = intent.getExtras();
-        String petUid = bundle.getString("PETUID");*/
-        String petUid = "fHnuhDOOn6hwokuDpLar";
+        String petUid = bundle.getString("PETUID");
 
-
-                btn_eat = findViewById(R.id.btn_eat);
+        btn_eat = findViewById(R.id.btn_eat);
         btn_eat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

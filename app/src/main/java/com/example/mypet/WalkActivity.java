@@ -11,18 +11,22 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 public class WalkActivity extends AppCompatActivity {
 
     public String fname = null;
-    public String str=null;
+    public String str = null;
     public CalendarView calendarView;
-    public Button cha_Btn,del_Btn,save_Btn;
-    public TextView diaryTextView,textView2,textView3;
-    public EditText contextEditText;
-    public Button stopwatch;
+    private Button cha_Btn, del_Btn, save_Btn, stopwatch;
+    private TextView diaryTextView, textView2, textView3;
+    private EditText contextEditText;
+    private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +42,14 @@ public class WalkActivity extends AppCompatActivity {
         textView3=findViewById(R.id.textView3);
         contextEditText=findViewById(R.id.contextEditText);
 
-        //로그인 및 회원가입 엑티비티에서 이름을 받아옴
-        Intent intent = getIntent();
+        Intent intent = getIntent(); // PETUID 전달받음
         Bundle bundle = intent.getExtras();
         String petUid = bundle.getString("PETUID");
-        String name = intent.getStringExtra("userName");
-        final String userID = intent.getStringExtra("userID");
+
+        mFirebaseAuth = FirebaseAuth.getInstance(); //로그인 및 회원가입 엑티비티에서 이름을 받아옴
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+        String name = firebaseUser.getDisplayName();
+        final String userID = firebaseUser.getUid();
         textView3.setText(name + "님의 달력 일기장");
         stopwatch = findViewById(R.id.stopwatch);
         stopwatch.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +68,9 @@ public class WalkActivity extends AppCompatActivity {
                 textView2.setVisibility(View.INVISIBLE);
                 cha_Btn.setVisibility(View.INVISIBLE);
                 del_Btn.setVisibility(View.INVISIBLE);
-                diaryTextView.setText(String.format("%d / %d / %d",year,month+1,dayOfMonth));
+                diaryTextView.setText(String.format("%d / %d / %d", year, month + 1, dayOfMonth));
                 contextEditText.setText("");
-                checkDay(year,month,dayOfMonth,userID);
+                checkDay(year, month, dayOfMonth, userID);
             }
         });
         save_Btn.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +84,6 @@ public class WalkActivity extends AppCompatActivity {
                 del_Btn.setVisibility(View.VISIBLE);
                 contextEditText.setVisibility(View.INVISIBLE);
                 textView2.setVisibility(View.VISIBLE);
-
             }
         });
     }

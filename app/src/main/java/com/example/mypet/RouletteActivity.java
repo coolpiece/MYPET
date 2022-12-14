@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,27 +15,50 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bluehomestudio.luckywheel.LuckyWheel;
 import com.bluehomestudio.luckywheel.OnLuckyWheelReachTheTarget;
 import com.bluehomestudio.luckywheel.WheelItem;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class RouletteActivity extends AppCompatActivity {
-    private LuckyWheel luckyWheel;
+    private FirebaseFirestore mFirestore;
+    private ArrayList<String> memberList = new ArrayList<>();
+    LuckyWheel luckyWheel;
     List<WheelItem> wheelItems;
     String point;
-    int family_number = 6;
+    int family_number = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_roulette);
 
         Intent intent = getIntent(); // PETUID 전달받음
         Bundle bundle = intent.getExtras();
         String petUid = bundle.getString("PETUID");
+        /*mFirestore = FirebaseFirestore.getInstance();
+        mFirestore.collection("PetInfo").document(petUid).collection("MemberList").get() // 파이어베이스에서 가족 목록 불러오기
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            String member = document.getData().get("userNickname").toString();
+                            memberList.add(member);
+                            family_number++;
+                        }
+                    }
+                });*/
 
-        generateWheelItems(); // 점수판 데이터 생성
+        if(family_number % 2 != 0) { // 홀수명일 때 *2해서 짝수로. 실제로는 (family_number - 1)명
+            family_number *= 2;
+        }
+
+        setContentView(R.layout.activity_menu_roulette);
+
+        generateWheelItems(memberList); // 점수판 데이터 생성
 
         luckyWheel = findViewById(R.id.luck_wheel); // 변수에 담기
         luckyWheel.addWheelItems(wheelItems); // 점수판에 데이터 넣기
@@ -58,10 +82,11 @@ public class RouletteActivity extends AppCompatActivity {
             }
         });
     }
-    private void generateWheelItems() { // 데이터 넣기
+
+    private void generateWheelItems(ArrayList<String> memberList) { // 데이터 넣기
         Bitmap.Config conf = Bitmap.Config.ARGB_4444;
         Bitmap bitmap = Bitmap.createBitmap(100, 100, conf);
-        ArrayList<String> memberList = new ArrayList<String>();
+
         memberList.add("a");
         memberList.add("b");
         memberList.add("c");
@@ -70,11 +95,11 @@ public class RouletteActivity extends AppCompatActivity {
         memberList.add("ㅅㅇ");
 
         wheelItems = new ArrayList<>();
-        wheelItems.add(new WheelItem(Color.parseColor("#F44366"), BitmapFactory.decodeResource(getResources(), R.drawable.ic_blank), memberList.get(0))); // 일단 이렇게 해놓고 가족 목록 불러오고, 색상 어떻게 넣을지 고민해볼 것 ..
-        wheelItems.add(new WheelItem(Color.parseColor("#00E6FF"), BitmapFactory.decodeResource(getResources(), R.drawable.ic_blank), memberList.get(1)));
-        wheelItems.add(new WheelItem(Color.parseColor("#F44366"), BitmapFactory.decodeResource(getResources(), R.drawable.ic_blank), memberList.get(2)));
-        wheelItems.add(new WheelItem(Color.parseColor("#00E6FF"), BitmapFactory.decodeResource(getResources(), R.drawable.ic_blank), memberList.get(3)));
-        wheelItems.add(new WheelItem(Color.parseColor("#F44366"), BitmapFactory.decodeResource(getResources(), R.drawable.ic_blank), memberList.get(4)));
-        wheelItems.add(new WheelItem(Color.parseColor("#00E6FF"), BitmapFactory.decodeResource(getResources(), R.drawable.ic_blank), memberList.get(5)));
+        for(int i = 0; i < family_number; i++) {
+            if(i % 2 == 0)
+                wheelItems.add(new WheelItem(Color.parseColor("#F44366"), BitmapFactory.decodeResource(getResources(), R.drawable.ic_blank), memberList.get(i)));
+            else
+                wheelItems.add(new WheelItem(Color.parseColor("#00E6FF"), BitmapFactory.decodeResource(getResources(), R.drawable.ic_blank), memberList.get(i)));
+        }
     }
 }

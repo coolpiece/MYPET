@@ -45,6 +45,7 @@ public class EnrollActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 enroll(view); // 동물 정보 등록 과정
+                finish();
             }
         });
     }
@@ -127,9 +128,6 @@ public class EnrollActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Intent intent = new Intent(EnrollActivity.this, MenuActivity.class);
-                                intent.putExtra("PETUID", petUid); // ************************* 나중에 petselect로 옮겨야할듯 ??
-                                startActivity(intent); //액티비티 이동
                                 finish();
                             }
                         })

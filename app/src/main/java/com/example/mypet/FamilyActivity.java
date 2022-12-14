@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,18 +19,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 public class FamilyActivity extends AppCompatActivity {
     private FamilyListItemAdapter adapter;
@@ -40,8 +33,6 @@ public class FamilyActivity extends AppCompatActivity {
     private ListView listView;
     private Button btn_add_family;
     private ArrayList<String> mMemberList = new ArrayList<>();
-    private Map<String, Object> userData = new HashMap<>();
-    private String userUid, userEmail, userNickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +42,7 @@ public class FamilyActivity extends AppCompatActivity {
         Intent intent = getIntent(); // PETUID 전달받음
         Bundle bundle = intent.getExtras();
         String petUid = bundle.getString("PETUID");
+        Log.d("*******", petUid);
 
         listView = findViewById(R.id.familylistview); // listview 참조
         adapter = new FamilyListItemAdapter(); // adapter 참조

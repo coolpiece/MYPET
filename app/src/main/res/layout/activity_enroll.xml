@@ -54,6 +54,7 @@
                 android:id="@+id/textpet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="반려동물"
                 android:textSize="15sp" />
 
@@ -92,6 +93,7 @@
                 android:id="@+id/textgender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="성별"
                 android:textSize="15sp" />
 
