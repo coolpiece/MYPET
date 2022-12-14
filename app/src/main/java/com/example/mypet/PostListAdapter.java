@@ -19,12 +19,12 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView mTitle;
-        TextView mContent;
+        TextView Title;
+        TextView Content;
         ViewHolder(View itemView) {
             super(itemView);
-            mTitle = itemView.findViewById(R.id.title);
-            mContent = itemView.findViewById(R.id.content);
+            Title = itemView.findViewById(R.id.title);
+            Content = itemView.findViewById(R.id.content);
         }
     }
 
@@ -32,15 +32,15 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
     @Override
     public PostListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_add_post, parent, false);
+        View view = inflater.inflate(R.layout.item_post_list, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.mTitle.setText(mList.get(position).getTitle());
-        holder.mContent.setText(mList.get(position).getContent());
+        holder.Title.setText(mList.get(position).getTitle());
+        holder.Content.setText(mList.get(position).getContent());
     }
 
     @Override

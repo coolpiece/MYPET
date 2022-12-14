@@ -56,7 +56,7 @@ public class AddPostImageAdapter extends RecyclerView.Adapter<AddPostImageAdapte
     @Override
     public AddPostImageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { // 뷰 홀더 객체 생성
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_add_image, parent, false);
+        View view = inflater.inflate(R.layout.item_add_image_list, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }

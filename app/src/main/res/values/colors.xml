@@ -10,5 +10,6 @@
     <color name="transparent">#00000000</color>
     <color name="gray">#C0C0C0</color>
     <color name="mint">#E2F9F1</color>
+    <color name="mint_200">#80CBC4</color>
     <color name="hint">#757575</color>
 </resources>

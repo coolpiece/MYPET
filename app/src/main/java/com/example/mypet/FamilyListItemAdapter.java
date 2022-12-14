@@ -33,7 +33,7 @@ public class FamilyListItemAdapter extends BaseAdapter {
 
         if(convertView == null) { // item_family_list를 inflate해서 convertview를 참조
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_family_listview, parent, false);
+            convertView = inflater.inflate(R.layout.item_family_list, parent, false);
         }
 
         // 화면에 보여질 데이터를 참조
