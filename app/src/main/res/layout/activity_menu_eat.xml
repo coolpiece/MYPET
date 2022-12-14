@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
-        android:text="CheckBox" />
+        android:text="아침" />
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
-        android:text="CheckBox" />
+        android:text="점심" />
 
     <Spinner
         android:id="@+id/spinner2"
@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
-        android:text="CheckBox" />
+        android:text="저녁" />
     <Spinner
         android:id="@+id/spinner3"
         android:layout_width="wrap_content"
