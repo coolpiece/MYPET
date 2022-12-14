@@ -17,4 +17,69 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="아침" />
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:layout_marginStart="10dp"
+        android:entries="@array/test"/>
+
+    <TextView
+        android:id="@+id/tv_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="드롭다운 결과"
+        android:textSize="20sp"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="점심" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:layout_marginStart="10dp"
+        android:entries="@array/test"/>
+
+    <TextView
+        android:id="@+id/tv_test2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="드롭다운 결과"
+        android:textSize="20sp" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="저녁" />
+    <Spinner
+        android:id="@+id/spinner3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:layout_marginStart="10dp"
+        android:entries="@array/test"/>
+
+    <TextView
+        android:id="@+id/tv_test3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="드롭다운 결과"
+        android:textSize="20sp" />
+
 </LinearLayout>
