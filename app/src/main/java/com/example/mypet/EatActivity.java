@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ public class EatActivity extends AppCompatActivity {
     private TextView tv_test;
     private TextView tv_test2;
     private TextView tv_test3;
+    private Button btn_plusplus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,15 @@ public class EatActivity extends AppCompatActivity {
         Intent intent = getIntent(); // PETUID 전달받음
         Bundle bundle = intent.getExtras();
         String petUid = bundle.getString("PETUID");
+
+        btn_plusplus = findViewById(R.id.btn_plusplus);
+        btn_plusplus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EatActivity.this, AlarmActivity.class);
+                startActivity(intent); //액티비티 이동
+            }
+        });
 
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
